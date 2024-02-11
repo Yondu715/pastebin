@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * 
+ */
 class User extends \TCG\Voyager\Models\User
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -17,6 +24,7 @@ class User extends \TCG\Voyager\Models\User
      */
     protected $fillable = [
         'name',
+        'role_id',
         'email',
         'password',
     ];
