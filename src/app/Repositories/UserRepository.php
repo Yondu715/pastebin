@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\DTO\RegisterDto;
+use App\Models\Role;
 use App\Models\User;
 
 class UserRepository
@@ -21,7 +22,7 @@ class UserRepository
             'email' => $registerDto->email,
             'password' => $registerDto->password,
             'name' => $registerDto->name,
-            'role_id' => 2
+            'role_id' => Role::USER_ID
         ]);
         $user->save();
         return $user;
