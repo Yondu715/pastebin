@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\CreatePasteDto;
+use App\Exceptions\PasteException;
 use App\Models\Paste;
 use App\Repositories\ExpirationTimeRepository;
 use App\Repositories\PasteRepository;
@@ -74,7 +75,8 @@ class PasteService
 
     /**
      * [Description for getPaste]
-     *
+     * @throws PasteException
+     * 
      * @param string $hash
      * 
      * @return Paste
@@ -83,6 +85,9 @@ class PasteService
     public function getPaste(string $hash): Paste
     {
         $paste = $this->pasteRepository->getByHash($hash);
+        if (!$paste) {
+            throw PasteException::notFound($hash);
+        }
         return $paste;
     }
 }

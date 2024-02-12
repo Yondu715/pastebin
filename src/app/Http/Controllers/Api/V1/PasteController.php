@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\CreatePasteDto;
+use App\Exceptions\PasteException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePasteRequest;
 use App\Http\Resources\PasteResource;
 use App\Models\User;
 use App\Services\PasteService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
@@ -47,9 +49,17 @@ class PasteController extends Controller
         return PasteResource::collection($pastes);
     }
 
-    public function getPaste(string $hash): PasteResource
+    public function getPaste(string $hash): PasteResource|JsonResponse
     {
-        $paste = $this->pasteService->getPaste($hash);
-        return PasteResource::make($paste);
+        try {
+            $paste = $this->pasteService->getPaste($hash);
+            return PasteResource::make($paste);
+        } catch (PasteException $e) {
+            return response()->json([
+                'errors' => [
+                    'message' => $e->getMessage()
+                ]
+            ], $e->getCode());
+        }
     }
 }
