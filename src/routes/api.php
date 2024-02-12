@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\ComplaintController;
 use App\Http\Controllers\Api\V1\PasteController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,9 @@ Route::prefix('pastes')
     Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes']);
     Route::get('/private', [PasteController::class, 'getPrivatePastes']);
     Route::get('/{hash}', [PasteController::class, 'getPaste']);
+});
+
+Route::prefix('complaints')
+->group(function () {
+    Route::post('/', [ComplaintController::class, 'store']);
 });
