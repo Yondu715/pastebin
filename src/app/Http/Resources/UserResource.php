@@ -4,7 +4,14 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use TCG\Voyager\Models\Role;
 
+/**
+ * @property int $id,
+ * @property string $email,
+ * @property string $name,
+ * @property Role $role,
+ */
 class UserResource extends JsonResource
 {
     /**

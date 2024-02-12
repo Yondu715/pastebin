@@ -11,6 +11,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
+use App\Models\User;
 
 class AuthController extends Controller
 {

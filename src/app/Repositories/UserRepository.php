@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Dto\RegisterDto;
+use App\DTO\RegisterDto;
 use App\Models\User;
 
 class UserRepository

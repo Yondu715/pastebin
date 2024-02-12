@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Dto\LoginDto;
-use App\Dto\RegisterDto;
+use App\DTO\LoginDto;
+use App\DTO\RegisterDto;
 use App\Exceptions\UserException;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -39,10 +39,10 @@ class AuthService
      *
      * @param LoginDto $loginDto
      * 
-     * @return [type]
+     * @return string
      * 
      */
-    public function login(LoginDto $loginDto)
+    public function login(LoginDto $loginDto): string
     {
         $user = $this->userRepository->getByEmail($loginDto->email);
         if (!$user || !Hash::check($loginDto->password, $user->password)) {
