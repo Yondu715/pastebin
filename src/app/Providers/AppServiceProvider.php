@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /** @phpstan-ignore-next-line */
         Voyager::addAction(\App\Actions\BanAction::class);
     }
 }
