@@ -25,4 +25,8 @@ Route::prefix('auth')
 Route::prefix('pastes')
 ->group(function () {
     Route::post('/', [PasteController::class, 'store']);
+    Route::get('/public/new', [PasteController::class, 'getLatestPublicPastes']);
+    Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes']);
+    Route::get('/private', [PasteController::class, 'getPrivatePastes']);
+    Route::get('/{hash}', [PasteController::class, 'getPaste']);
 });

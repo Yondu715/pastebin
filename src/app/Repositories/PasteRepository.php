@@ -3,12 +3,23 @@
 namespace App\Repositories;
 
 use App\DTO\CreatePasteDto;
+use App\Models\AccessRestriction;
 use App\Models\Paste;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class PasteRepository
 {
-    public function create(CreatePasteDto $createPasteDto, int $minutes)
+    /**
+     * [Description for create]
+     *
+     * @param CreatePasteDto $createPasteDto
+     * @param int $minutes
+     * 
+     * @return Paste
+     * 
+     */
+    public function create(CreatePasteDto $createPasteDto, int $minutes): Paste
     {
         $paste = new Paste([
             'title' => $createPasteDto->title,
@@ -21,5 +32,63 @@ class PasteRepository
         ]);
         $paste->save();
         return $paste;
+    }
+
+    /**
+     * [Description for getLatestPublic]
+     *
+     * @return Collection<int,Paste>
+     * 
+     */
+    public function getLatestPublic(): Collection
+    {
+        return Paste::query()->where([
+            'access_restriction_id' => AccessRestriction::PUBLIC
+        ])->latest()->limit(10)->get();
+    }
+
+    /**
+     * [Description for getLatestByAuthor]
+     *
+     * @param int $authorId
+     * 
+     * @return Collection<int,Paste>
+     * 
+     */
+    public function getLatestByAuthor(int $authorId): Collection
+    {
+        return Paste::query()->where([
+            'author_id' => $authorId
+        ])->latest()->limit(10)->get();
+    }
+
+    /**
+     * [Description for getByAuthor]
+     *
+     * @param int $authorId
+     * 
+     * @return Collection<int,Paste>
+     * 
+     */
+    public function getByAuthor(int $authorId): Collection
+    {
+        return Paste::query()->where([
+            'author_id' => $authorId
+        ])->get();
+    }
+
+    /**
+     * [Description for getByHash]
+     *
+     * @param string $hash
+     * 
+     * @return Paste|null
+     * 
+     */
+    public function getByHash(string $hash): ?Paste
+    {
+        return Paste::query()->where([
+            'hash' => $hash
+        ])->first();
     }
 }
