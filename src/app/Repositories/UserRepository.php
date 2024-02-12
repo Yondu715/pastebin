@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Dto\RegisterDto;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
@@ -43,19 +42,4 @@ class UserRepository
         ])->first();
     }
 
-    /**
-     * [Description for getByEmailAndPassword]
-     *
-     * @param string $email
-     * @param string $password
-     * 
-     * @return User|null
-     * 
-     */
-    public function getByEmailAndPassword(string $email, string $password): ?User {
-        return User::query()->where([
-            'email' => $email,
-            'password' => Hash::make($password)
-        ])->first();
-    }
 }
