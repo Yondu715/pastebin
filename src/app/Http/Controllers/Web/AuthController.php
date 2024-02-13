@@ -10,7 +10,9 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -22,25 +24,25 @@ class AuthController extends Controller
 
     public function getLoginForm()
     {
-        return view('auth.login');
+        return view('pages.auth.login');
     }
 
     public function getRegisterForm()
     {
-        return view('auth.register');
+        return view('pages.auth.register');
     }
 
     public function login(LoginRequest $loginRequest)
     {
         $loginDto = LoginDto::fromRequest($loginRequest);
         try {
-            $this->authService->loginSession($loginDto);
+            $user = $this->authService->login($loginDto);
+            Auth::login($user, $loginDto->remember);
             $loginRequest->session()->regenerate();
-            return redirect('main');
+            return redirect('home');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
-
     }
 
     public function register(RegisterRequest $registerRequest): RedirectResponse
@@ -54,9 +56,11 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('auth.login');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/auth/login');
     }
 }

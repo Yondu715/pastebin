@@ -39,23 +39,11 @@ class AuthService
      *
      * @param LoginDto $loginDto
      * 
-     * @return string
+     * @return User
      * 
      */
-    public function login(LoginDto $loginDto): string
+    public function login(LoginDto $loginDto): User
     {
-        $user = $this->userRepository->getByEmail($loginDto->email);
-        if (!$user || !Hash::check($loginDto->password, $user->password)) {
-            throw UserException::invalidCredentials();
-        }
-        if ($user->is_banned) {
-            throw UserException::isBanned();
-        }
-        $token = $user->createToken('auth')->accessToken;
-        return $token;
-    }
-
-    public function loginSession(LoginDto $loginDto): void {
         $user = $this->userRepository->getByEmail($loginDto->email);
         if (!$user || !Hash::check($loginDto->password, $user->password)) {
             throw UserException::invalidCredentials();
@@ -66,5 +54,6 @@ class AuthService
         if ($loginDto->remember) {
             $user->updateRememberToken();
         }
+        return $user;
     }
 }

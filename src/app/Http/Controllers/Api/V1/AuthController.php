@@ -33,7 +33,8 @@ class AuthController extends Controller
     {
         $loginDto = LoginDto::fromRequest($loginRequest);
         try {
-            $token = $this->authService->login($loginDto);
+            $user = $this->authService->login($loginDto);
+            $token = $user->createToken('auth')->accessToken;
             return response()->json([
                 'data' => [
                     'accessToken' => $token
