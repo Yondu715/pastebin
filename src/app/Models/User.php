@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
  * @property string $name
  * @property string $email
  * @property string $password
- * 
+ * @property bool $is_banned
  */
 class User extends \TCG\Voyager\Models\User
 {

@@ -45,7 +45,7 @@ class AuthService
     public function login(LoginDto $loginDto): string
     {
         $user = $this->userRepository->getByEmail($loginDto->email);
-        if (!$user || !Hash::check($loginDto->password, $user->password)) {
+        if (!$user || !Hash::check($loginDto->password, $user->password) || $user->is_banned) {
             throw UserException::unauthorised();
         }
         $token = $user->createToken('auth')->accessToken;
