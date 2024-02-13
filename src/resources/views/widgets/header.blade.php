@@ -1,17 +1,16 @@
 <header>
     <div class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Pastebin</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Pastebin</a>
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Главная</a>
+                    <a class="nav-link" href="{{ route('home') }}">Лента</a>
                 </li>
+                @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="#">О нас</a>
+                    <a class="nav-link" href="#">Мои пасты</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Контакты</a>
-                </li>
+                @endauth
             </ul>
 
             <div>
