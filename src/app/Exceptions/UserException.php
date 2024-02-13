@@ -17,7 +17,7 @@ class UserException extends Exception
      * @return UserException
      * 
      */
-    public static function unauthorised(): UserException
+    public static function unauthorized(): UserException
     {
         return new self("Пользователь неавторизован", 401);
     }
