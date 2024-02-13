@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    @include('widgets.register')
+    @include('features.register')
 @endsection
