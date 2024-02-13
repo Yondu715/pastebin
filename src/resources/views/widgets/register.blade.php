@@ -12,39 +12,18 @@
                     <div class="alert alert-danger">{{ Session::get('error') }}</div>
                 @endif
                 <div class="form-outline mb-4">
-                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
-                        required />
-                    <label class="form-label" for="name">Имя</label>
-                    <br />
-                    <span class="text-danger">
-                        @error('name')
-                            {{ $message }}
-                        @enderror
-                    </span>
+                    <x-input-field type="text" name="name" label="Имя" inputClass="form-control"
+                        labelClass="form-label" />
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}"
-                        required />
-                    <label class="form-label" for="email">Email</label>
-                    <br />
-                    <span class="text-danger">
-                        @error('email')
-                            {{ $message }}
-                        @enderror
-                    </span>
+                    <x-input-field type="email" name="email" label="Email" inputClass="form-control"
+                        labelClass="form-label" />
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="password" name="password" id="password" class="form-control"
-                        value="{{ old('password') }}" required />
-                    <label class="form-label" for="password">Пароль</label>
-                    <br />
-                    <span class="text-danger">
-                        @error('password')
-                            {{ $message }}
-                        @enderror
-                    </span>
+                    <x-input-field type="password" name="password" label="Пароль" inputClass="form-control"
+                        labelClass="form-label" />
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block mb-4">Зарегистрироваться</button>
