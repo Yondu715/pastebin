@@ -1,15 +1,15 @@
 <header>
     <div class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">Pastebin</a>
+            <a class="navbar-brand" href="{{ route('pastes.public.new') }}">Pastebin</a>
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Лента</a>
+                    <a class="nav-link" href="{{ route('pastes.public.new') }}">Лента</a>
                 </li>
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Мои пасты</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pastes.private') }}">Мои пасты</a>
+                    </li>
                 @endauth
             </ul>
 
