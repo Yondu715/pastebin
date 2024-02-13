@@ -21,4 +21,9 @@ class UserException extends Exception
     {
         return new self("Пользователь неавторизован", 401);
     }
+
+    public static function isBanned(): UserException
+    {
+        return new self("Пользователь забанен", 403);
+    }
 }
