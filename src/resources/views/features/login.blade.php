@@ -3,7 +3,7 @@
         <div class="col-6 col-md-offset-4 d-flex flex-column align-items-center">
             <h4>Авторизация</h4>
             <hr />
-            <form style="width: 100%" action="{{ route('auth.login') }}" method="POST">
+            <form style="width: 100%" class="d-flex flex-column" action="{{ route('auth.login') }}" method="POST">
                 @csrf
                 @if (Session::has('success'))
                     <div class="alert alert-success">{{ Session::get('success') }}</div>
