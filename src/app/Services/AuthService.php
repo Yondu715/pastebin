@@ -46,12 +46,25 @@ class AuthService
     {
         $user = $this->userRepository->getByEmail($loginDto->email);
         if (!$user || !Hash::check($loginDto->password, $user->password)) {
-            throw UserException::unauthorized();
+            throw UserException::invalidCredentials();
         }
         if ($user->is_banned) {
             throw UserException::isBanned();
         }
         $token = $user->createToken('auth')->accessToken;
         return $token;
+    }
+
+    public function loginSession(LoginDto $loginDto): void {
+        $user = $this->userRepository->getByEmail($loginDto->email);
+        if (!$user || !Hash::check($loginDto->password, $user->password)) {
+            throw UserException::invalidCredentials();
+        }
+        if ($user->is_banned) {
+            throw UserException::isBanned();
+        }
+        if ($loginDto->remember) {
+            $user->updateRememberToken();
+        }
     }
 }

@@ -26,4 +26,9 @@ class UserException extends Exception
     {
         return new self("Пользователь забанен", 403);
     }
+
+    public static function invalidCredentials(): UserException
+    {
+        return new self("Неверный логин или пароль", 401);
+    }
 }

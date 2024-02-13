@@ -9,6 +9,7 @@ class LoginDto
     public function __construct(
         public readonly string $email,
         public readonly string $password,
+        public readonly bool $remember
     ) {
     }
 
@@ -16,7 +17,8 @@ class LoginDto
     {
         return new self(
             $loginRequest->email,
-            $loginRequest->password
+            $loginRequest->password,
+            $loginRequest->remember ? true : false
         );
     }
 }

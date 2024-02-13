@@ -2,11 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
-
 
 /**
  * @property string $email
@@ -32,7 +28,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'string|required',
-            'email' => 'string|required',
+            'email' => 'string|required|email',
             'password' => 'string|required'
         ];
     }
@@ -49,22 +45,10 @@ class RegisterRequest extends FormRequest
             'name.string' => 'Поле name должен быть строкой',
             'email.required' => 'Необходимо указать email',
             'email.string' => 'Поле email должен быть строкой',
+            'email.email' => 'Поле email должно быть почтой',
             'password.required' => 'Необходимо указать password',
             'password.string' => 'Поле password должен быть строкой'
         ];
     }
 
-    /**
-     *
-     * @param Validator $validator
-     * 
-     * @return JsonResponse
-     * 
-     */
-    protected function failedValidation(Validator $validator): JsonResponse
-    {
-        throw new HttpResponseException(response()->json([
-            'errors' => $validator->errors()
-        ], 400));
-    }
 }
