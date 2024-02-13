@@ -39,7 +39,7 @@ class AuthController extends Controller
             $user = $this->authService->login($loginDto);
             Auth::login($user, $loginDto->remember);
             $loginRequest->session()->regenerate();
-            return redirect('home');
+            return redirect()->route('pastes.public.new');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -61,6 +61,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/auth/login');
+        return redirect()->route('login');
     }
 }
