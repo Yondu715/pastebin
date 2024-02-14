@@ -14,12 +14,12 @@ class PasteRepository
      * [Description for create]
      *
      * @param CreatePasteDto $createPasteDto
-     * @param int $minutes
+     * @param int|null $minutes
      * 
      * @return Paste
      * 
      */
-    public function create(CreatePasteDto $createPasteDto, int $minutes): Paste
+    public function create(CreatePasteDto $createPasteDto, int|null $minutes): Paste
     {
         $paste = new Paste([
             'title' => $createPasteDto->title,
@@ -28,7 +28,7 @@ class PasteRepository
             'programming_language_id' => $createPasteDto->programmingLanguageId,
             'access_restriction_id' => $createPasteDto->accessRestrictionId,
             'hash' => Str::random(10),
-            'expires_at' => now()->addMinutes($minutes)
+            'expires_at' => $minutes ? now()->addMinutes($minutes) : null
         ]);
         $paste->save();
         return $paste;
