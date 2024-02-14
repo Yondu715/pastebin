@@ -42,17 +42,4 @@ class CreatePasteRequest extends FormRequest
         ];
     }
 
-    /**
-     *
-     * @param Validator $validator
-     * 
-     * @return JsonResponse
-     * 
-     */
-    protected function failedValidation(Validator $validator): JsonResponse
-    {
-        throw new HttpResponseException(response()->json([
-            'errors' => $validator->errors()
-        ], 400));
-    }
 }
