@@ -24,6 +24,8 @@ class Complaint extends Model
      */
     protected $hidden = ['created_at', 'updated_at'];
 
+    protected $guarded = ['created_at', 'updated_at', 'id'];
+
     /**
      * @return BelongsTo
      */
