@@ -50,4 +50,10 @@ class PasteController extends Controller
             'privatePastes' => $privatePastes
         ]);
     }
+
+    public function show(string $hash)
+    {
+        $paste = $this->pasteService->getPaste($hash);
+        return view('pages.pastes.paste-info')->with(['paste' => $paste]);
+    }
 }
