@@ -6,6 +6,7 @@ use App\DTO\CreatePasteDto;
 use App\Models\AccessRestriction;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class PasteRepository
@@ -67,14 +68,14 @@ class PasteRepository
      *
      * @param int $authorId
      * 
-     * @return Collection<int,Paste>
+     * @return LengthAwarePaginator
      * 
      */
-    public function getByAuthor(int $authorId): Collection
+    public function getByAuthor(int $authorId): LengthAwarePaginator
     {
         return Paste::query()->where([
             'author_id' => $authorId
-        ])->get();
+        ])->paginate(10);
     }
 
     /**

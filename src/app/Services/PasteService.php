@@ -8,6 +8,7 @@ use App\Models\Paste;
 use App\Repositories\ExpirationTimeRepository;
 use App\Repositories\PasteRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PasteService
 {
@@ -59,15 +60,16 @@ class PasteService
         return $pastes;
     }
 
+
     /**
      * [Description for getPrivatePastes]
      *
      * @param int $authorId
      * 
-     * @return Collection<int,Paste>
+     * @return LengthAwarePaginator
      * 
      */
-    public function getPrivatePastes(int $authorId): Collection
+    public function getPrivatePastes(int $authorId): LengthAwarePaginator
     {
         $pastes = $this->pasteRepository->getByAuthor($authorId);
         return $pastes;
