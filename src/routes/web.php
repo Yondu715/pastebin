@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\ComplaintController;
 use App\Http\Controllers\Web\PasteController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,7 @@ Route::prefix('pastes')
     Route::get('/', [PasteController::class, 'index'])->name('index');
     Route::get('/private', [PasteController::class, 'getPrivatePastes'])->name('private');
     Route::get('/{hash}', [PasteController::class, 'show'])->name('show');
+    Route::get('/{pasteId}/complaint/create-form', [ComplaintController::class, 'getCreateForm'])->name('complaint.create');
+    Route::post('/{pasteId}/complaint', [ComplaintController::class, 'store'])->name('complaint.store');
 });
 
