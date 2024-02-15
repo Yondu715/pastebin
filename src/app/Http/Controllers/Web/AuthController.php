@@ -12,7 +12,6 @@ use App\Services\AuthService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -39,7 +38,7 @@ class AuthController extends Controller
             $user = $this->authService->login($loginDto);
             Auth::login($user, $loginDto->remember);
             $loginRequest->session()->regenerate();
-            return redirect()->route('pastes.public.new');
+            return redirect()->route('pastes.index');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }

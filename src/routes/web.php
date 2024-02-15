@@ -32,8 +32,7 @@ Route::prefix('pastes')
 ->group(function () {
     Route::get('/create-form', [PasteController::class, 'getCreateForm'])->name('create');
     Route::post('/', [PasteController::class, 'store'])->name('store');
-    Route::get('/public/new', [PasteController::class, 'getCreateForm'])->name('public.new');
-    Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes'])->name('private.new');
+    Route::get('/', [PasteController::class, 'index'])->name('index');
     Route::get('/private', [PasteController::class, 'getPrivatePastes'])->name('private');
     Route::get('/{hash}', [PasteController::class, 'show'])->name('show');
 });

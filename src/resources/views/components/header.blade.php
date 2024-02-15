@@ -1,10 +1,10 @@
 <header>
     <div class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('pastes.public.new') }}">Pastebin</a>
+            <a class="navbar-brand" href="{{ route('pastes.index') }}">Pastebin</a>
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('pastes.public.new') }}">Лента</a>
+                    <a class="nav-link" href="{{ route('pastes.index') }}">Лента</a>
                 </li>
                 @auth
                     <li class="nav-item">

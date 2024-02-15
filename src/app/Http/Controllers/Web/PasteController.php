@@ -39,4 +39,15 @@ class PasteController extends Controller
         return back()->with(["success" => "Паста успешно создана"]);
     }
 
+    public function index()
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        $pastes = $this->pasteService->getLatestPublicPastes();
+        $privatePastes = $user ? $this->pasteService->getLatestPrivatePastes($user->id) : [];
+        return view('pages.pastes.home')->with([
+            'publicPastes' => $pastes,
+            'privatePastes' => $privatePastes
+        ]);
+    }
 }
