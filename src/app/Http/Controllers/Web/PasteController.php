@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\DTO\CreatePasteDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePasteRequest;
+use App\Models\User;
 use App\Services\AccessRestrictionService;
 use App\Services\ExpirationTimeService;
 use App\Services\PasteService;
@@ -55,5 +56,13 @@ class PasteController extends Controller
     {
         $paste = $this->pasteService->getPaste($hash);
         return view('pages.pastes.paste-info')->with(['paste' => $paste]);
+    }
+
+    public function getPrivatePastes()
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        $pastes = $this->pasteService->getPrivatePastes($user->id);
+        return view('pages.pastes.private')->with(['pastes' => $pastes]);
     }
 }
