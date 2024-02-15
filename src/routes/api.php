@@ -17,22 +17,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('auth')
-->group(function () {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('logout', [AuthController::class, 'logout']);
-});
+    ->group(function () {
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('register', [AuthController::class, 'register']);
+        Route::post('logout', [AuthController::class, 'logout'])
+            ->middleware('auth:api');
+    });
 
 Route::prefix('pastes')
-->group(function () {
-    Route::post('/', [PasteController::class, 'store']);
-    Route::get('/public/new', [PasteController::class, 'getLatestPublicPastes']);
-    Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes']);
-    Route::get('/private', [PasteController::class, 'getPrivatePastes']);
-    Route::get('/{hash}', [PasteController::class, 'getPaste']);
-});
+    ->group(function () {
+        Route::post('/', [PasteController::class, 'store']);
+        Route::get('/public/new', [PasteController::class, 'getLatestPublicPastes']);
+        Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes'])
+            ->middleware('auth:api');
+        Route::get('/private', [PasteController::class, 'getPrivatePastes'])
+            ->middleware('auth:api');
+        Route::get('/{hash}', [PasteController::class, 'getPaste']);
+    });
 
 Route::prefix('complaints')
-->group(function () {
-    Route::post('/', [ComplaintController::class, 'store']);
-});
+    ->group(function () {
+        Route::post('/', [ComplaintController::class, 'store'])
+            ->middleware('auth:api');
+    });
