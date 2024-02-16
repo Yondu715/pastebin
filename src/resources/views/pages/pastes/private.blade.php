@@ -4,9 +4,15 @@
 @endsection
 @section('content')
     <div class="container d-flex flex-column gap-5 mt-2 mb-2">
-        @foreach ($pastes as $paste)
-            <x-paste-card :paste="$paste"/>
-        @endforeach
+        <div class="row">
+            @foreach ($pastes as $paste)
+            <div class="col-md-6 mb-4">
+                <x-paste-card :paste="$paste"/>
+            </div>
+            @endforeach
+        </div>
     </div>
-    {{$pastes->links()}}
+    <div class="d-flex justify-content-center">
+        {{$pastes->links('pagination::bootstrap-4')}}
+    </div>
 @endsection
