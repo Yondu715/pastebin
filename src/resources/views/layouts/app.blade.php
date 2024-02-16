@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
 </head>
 
-<body>
+<body class="vh-100">
     <header>
         @yield('header')
     </header>
-    <main>
+    <main class="h-100">
         @yield('content')
     </main>
 </body>

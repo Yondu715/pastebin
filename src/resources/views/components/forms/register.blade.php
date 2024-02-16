@@ -1,5 +1,5 @@
-<div class="container" style="height: 100vh">
-    <div class="row justify-content-center align-items-center" style="height: 100vh">
+<div class="container h-100">
+    <div class="row justify-content-center align-items-center h-100">
         <div class="col-6 col-md-offset-4 d-flex flex-column align-items-center">
             <h4>Регистрация</h4>
             <hr />
