@@ -2,15 +2,10 @@
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-6 col-md-offset-4 d-flex flex-column align-items-center">
             <h4>Авторизация</h4>
-            <hr />
             <form style="width: 100%" class="d-flex flex-column" action="{{ route('auth.login') }}" method="POST">
                 @csrf
-                @if (Session::has('success'))
-                    <div class="alert alert-success">{{ Session::get('success') }}</div>
-                @endif
-                @if (Session::has('error'))
-                    <div class="alert alert-danger">{{ Session::get('error') }}</div>
-                @endif
+                <x-session-alert name="success" type="success"/>
+                <x-session-alert  name="error" type="danger"/>
                 <div class="form-outline mb-4">
                     <x-label class="form-label" for="email" text="Email"/>
                     <x-input type="email" name="email" class="form-control" />
