@@ -39,14 +39,14 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::prefix('pastes')
     ->name('pastes.')
     ->group(function () {
-        Route::get('/create-form', [PasteController::class, 'getCreateForm'])->name('create');
+        Route::get('/create', [PasteController::class, 'create'])->name('create');
         Route::post('/', [PasteController::class, 'store'])->name('store');
         Route::get('/', [PasteController::class, 'index'])->name('index');
         Route::get('/private', [PasteController::class, 'getPrivatePastes'])
             ->name('private')
             ->middleware('auth');
         Route::get('/{hash}', [PasteController::class, 'show'])->name('show');
-        Route::get('/{pasteId}/complaint/create-form', [ComplaintController::class, 'getCreateForm'])
+        Route::get('/{pasteId}/complaint/create', [ComplaintController::class, 'create'])
             ->name('complaint.create')
             ->middleware('auth');
         Route::post('/{pasteId}/complaint', [ComplaintController::class, 'store'])

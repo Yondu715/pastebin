@@ -23,7 +23,7 @@ class PasteController extends Controller
     ) {
     }
 
-    public function getCreateForm(): View
+    public function create(): View
     {
         $accessRestrictions = $this->accessRestrictionService->getAll();
         $programmingLanguages = $this->programmingLanguageService->getAll();

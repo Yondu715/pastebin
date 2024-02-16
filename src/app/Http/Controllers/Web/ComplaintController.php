@@ -17,7 +17,7 @@ class ComplaintController extends Controller
     ) {
     }
 
-    public function getCreateForm(int $pasteId): View
+    public function create(int $pasteId): View
     {
         return view('pages.complaints.create')->with(['pasteId' => $pasteId]);
     }
