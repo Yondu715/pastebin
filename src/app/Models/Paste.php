@@ -46,7 +46,7 @@ class Paste extends Model
      *
      * @return BelongsTo
      */
-    public function accessRestrinction(): BelongsTo
+    public function accessRestriction(): BelongsTo
     {
         return $this->belongsTo(AccessRestriction::class);
     }
