@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    <x-forms.login />
+    <x-auth.login-form />
 @endsection

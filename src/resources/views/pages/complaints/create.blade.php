@@ -3,5 +3,5 @@
     <x-header />
 @endsection
 @section('content')
-    <x-forms.create-complaint :pasteId="$pasteId"/>
+    <x-complaints.create-form :pasteId="$pasteId"/>
 @endsection

@@ -3,5 +3,5 @@
     <x-header />
 @endsection
 @section('content')
-    <x-forms.create-paste :accessRestrictions="$accessRestrictions" :programmingLanguages="$programmingLanguages" :expirationTimes="$expirationTimes"/>
+    <x-pastes.create-form :accessRestrictions="$accessRestrictions" :programmingLanguages="$programmingLanguages" :expirationTimes="$expirationTimes"/>
 @endsection
