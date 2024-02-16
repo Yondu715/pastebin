@@ -4,6 +4,6 @@
 @endsection
 @section('content')
     <div class="container d-flex flex-column gap-5 mt-2 mb-2">
-        <x-paste-card :paste="$paste" />
+        <x-paste-info-card :paste="$paste" />
     </div>
 @endsection
