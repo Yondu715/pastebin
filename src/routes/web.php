@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthGoogleController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\ComplaintController;
 use App\Http\Controllers\Web\PasteController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +36,9 @@ Route::prefix('auth')->name('auth.')->group(function () {
         ->middleware('guest');
     Route::post('/register', [AuthController::class, 'register'])
         ->middleware('guest');
+
+    Route::get('/login/google', [AuthGoogleController::class, 'redirectToProvider'])->name('login.google');
+    Route::get('/login/google/callback', [AuthGoogleController::class, 'handleProviderCallback']);
 });
 
 Route::prefix('pastes')
