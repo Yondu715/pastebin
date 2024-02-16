@@ -11,7 +11,7 @@
                 </div>
                 @foreach ($publicPastes as $paste)
                     <div class="mb-4">
-                        <x-paste-card :paste="$paste" />
+                        <x-pastes.card :paste="$paste" />
                     </div>
                 @endforeach
             </div>
@@ -22,7 +22,7 @@
                     </div>
                     @foreach ($privatePastes as $paste)
                         <div class="mb-4">
-                            <x-paste-card :paste="$paste" />
+                            <x-pastes.card :paste="$paste" />
                         </div>
                     @endforeach
                 </div>

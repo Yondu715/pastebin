@@ -16,17 +16,16 @@
                 @endif
                 <input type="hidden" name="authorId" value="{{ $authorId }}" />
                 <div class="form-outline mb-4">
-                    <x-input-field type="text" name="title" label="Заголовок" inputClass="form-control"
-                        labelClass="form-label" />
+                    <x-label class="form-label" for="title" text="Заголовок"  />
+                    <x-input type="text" name="title" class="form-control"/>
+                    <x-error name="title"/>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="code">Текст</label>
-                    <textarea id="code" name="text" class="form-control" rows="10">
-
-                    </textarea>
+                    <x-label class="form-label" for="code" text="Текст"/>
+                    <textarea id="code" name="text" class="form-control" rows="10"></textarea>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="access-restrictions">Тип доступа</label>
+                    <x-label class="form-label" for="access-restrictions" text="Тип доступа"/>
                     <br />
                     <select name="accessRestrictionId" id="access-restrictions">
                         @foreach ($accessRestrictions as $accessRestriction)
@@ -36,9 +35,8 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="programming-languages">Язык программирования</label>
+                    <x-label class="form-label" for="programming-languages" text="Язык программирования"/>
                     <br />
                     <select name="programmingLanguageId" id="programming-languages">
                         @foreach ($programmingLanguages as $programmingLanguage)
@@ -48,9 +46,8 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="expiration-times">Ограничение по времени</label>
+                    <x-label class="form-label" for="expiration-times" text="Ограничение по времени"/>
                     <br />
                     <select name="expirationTimeId" id="expiration-times">
                         @foreach ($expirationTimes as $expirationTime)
@@ -60,7 +57,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <button type="submit" class="btn btn-primary btn-block mb-4 align-self-end">Создать</button>
             </form>
         </div>

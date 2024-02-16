@@ -12,22 +12,21 @@
                     <div class="alert alert-danger">{{ Session::get('error') }}</div>
                 @endif
                 <div class="form-outline mb-4">
-                    <x-input-field type="text" name="name" label="Имя" inputClass="form-control"
-                        labelClass="form-label" />
+                    <x-label class="form-label" for="name" text="Имя"  />
+                    <x-input type="text" name="name" class="form-control"/>
+                    <x-error name="name"/>
                 </div>
-
                 <div class="form-outline mb-4">
-                    <x-input-field type="email" name="email" label="Email" inputClass="form-control"
-                        labelClass="form-label" />
+                    <x-label class="form-label" for="email" text="Email"  />
+                    <x-input type="email" name="email" class="form-control"/>
+                    <x-error name="email"/>
                 </div>
-
                 <div class="form-outline mb-4">
-                    <x-input-field type="password" name="password" label="Пароль" inputClass="form-control"
-                        labelClass="form-label" />
+                    <x-label class="form-label" for="password" text="Пароль"  />
+                    <x-input type="password" name="password" class="form-control"/>
+                    <x-error name="password"/>
                 </div>
-
                 <button type="submit" class="btn btn-primary btn-block mb-4">Зарегистрироваться</button>
-
             </form>
             <div class="text-center">
                 <p>Уже есть аккаунт? <a href="{{ route('auth.login') }}">Авторизоваться</a></p>

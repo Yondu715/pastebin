@@ -14,14 +14,13 @@
                 <input type="hidden" name="authorId" value="{{ auth()->user()->id }}" />
                 <input type="hidden" name="pasteId" value="{{ $pasteId }}" />
                 <div class="form-outline mb-4">
-                    <x-input-field type="text" name="title" label="Заголовок" inputClass="form-control"
-                        labelClass="form-label" />
+                    <x-label class="form-label" for="title" text="Заголовок"  />
+                    <x-input type="text" name="title" class="form-control"/>
+                    <x-error name="title"/>
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="code">Текст</label>
-                    <textarea id="code" name="text" class="form-control" rows="10">
-
-                    </textarea>
+                    <x-label class="form-label" for="code" text="Текст"/>
+                    <textarea id="code" name="text" class="form-control" rows="10"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block mb-4 align-self-end">Создать</button>

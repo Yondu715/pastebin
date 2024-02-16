@@ -7,7 +7,7 @@
         <div class="row">
             @foreach ($pastes as $paste)
             <div class="col-md-6 mb-4">
-                <x-paste-card :paste="$paste"/>
+                <x-pastes.card :paste="$paste"/>
             </div>
             @endforeach
         </div>
