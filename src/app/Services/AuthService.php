@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\DTO\CreateUserDto;
 use App\DTO\LoginDto;
-use App\DTO\RegisterDto;
 use App\Exceptions\UserException;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -20,17 +20,17 @@ class AuthService
     /**
      * [Description for register]
      *
-     * @param RegisterDto $registerDto
+     * @param CreateUserDto $createUserDto
      * 
      * @return User
      * 
      */
-    public function register(RegisterDto $registerDto): User
+    public function register(CreateUserDto $createUserDto): User
     {
-        if ($this->userRepository->getByEmail($registerDto->email)) {
-            throw UserException::conflict($registerDto->email);
+        if ($this->userRepository->getByEmail($createUserDto->email)) {
+            throw UserException::conflict($createUserDto->email);
         }
-        $user = $this->userRepository->create($registerDto);
+        $user = $this->userRepository->create($createUserDto);
         return $user;
     }
 
@@ -55,5 +55,9 @@ class AuthService
             $user->updateRememberToken();
         }
         return $user;
+    }
+
+    public function registerViaSocial(CreateUserDto $createUserDto)
+    {
     }
 }

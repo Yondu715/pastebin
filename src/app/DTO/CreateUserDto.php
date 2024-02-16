@@ -4,7 +4,7 @@ namespace App\DTO;
 
 use App\Http\Requests\RegisterRequest;
 
-class RegisterDto
+class CreateUserDto
 {
     public function __construct(
         public readonly string $name,
@@ -13,7 +13,7 @@ class RegisterDto
     ) {
     }
 
-    public static function fromRequest(RegisterRequest $registerRequest): RegisterDto
+    public static function fromRequest(RegisterRequest $registerRequest): CreateUserDto
     {
         return new self(
             $registerRequest->name,

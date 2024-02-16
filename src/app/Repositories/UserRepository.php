@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DTO\RegisterDto;
+use App\DTO\CreateUserDto;
 use App\Models\Role;
 use App\Models\User;
 
@@ -11,17 +11,17 @@ class UserRepository
     /**
      * [Description for create]
      *
-     * @param RegisterDto $registerDto
+     * @param CreateUserDto $CreateUserDto
      * 
      * @return User
      * 
      */
-    public function create(RegisterDto $registerDto): User
+    public function create(CreateUserDto $createUserDto): User
     {
         $user = new User([
-            'email' => $registerDto->email,
-            'password' => $registerDto->password,
-            'name' => $registerDto->name,
+            'email' => $createUserDto->email,
+            'password' => $createUserDto->password,
+            'name' => $createUserDto->name,
             'role_id' => Role::USER_ID
         ]);
         $user->save();
