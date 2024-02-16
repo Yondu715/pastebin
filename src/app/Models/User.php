@@ -50,7 +50,14 @@ class User extends \TCG\Voyager\Models\User
         'password' => 'hashed',
     ];
 
-    public function updateRememberToken() {
+    /**
+     * [Description for updateRememberToken]
+     *
+     * @return void
+     * 
+     */
+    public function updateRememberToken(): void
+    {
         $this->update([
             'remember_token' => Str::random(60)
         ]);

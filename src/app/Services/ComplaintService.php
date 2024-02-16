@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Dto\CreateComplaintDto;
+use App\DTO\CreateComplaintDto;
 use App\Models\Complaint;
 use App\Repositories\ComplaintRepository;
 

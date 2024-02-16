@@ -50,14 +50,17 @@ class UserRepository
      * @param int $userId
      * @param bool $status
      * 
-     * @return User
+     * @return User|null
      * 
      */
-    public function updateBanStatus(int $userId, bool $status): User
+    public function updateBanStatus(int $userId, bool $status): ?User
     {
+        /** @var User|null $user */
         $user = User::query()->find($userId);
-        $user->is_banned = $status;
-        $user->save();
+        if ($user) {
+            $user->is_banned = $status;
+            $user->save();
+        }
         return $user;
     }
 }

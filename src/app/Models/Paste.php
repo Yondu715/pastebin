@@ -15,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property AccessRestrinction $accessRestriction
  * @property timestamp $expires_at
  * @property string $hash
- * @method Builder available()
+ * @method Builder|static available()
+ * @method static Builder|static query()
  */
 class Paste extends Model
 {
@@ -60,6 +61,14 @@ class Paste extends Model
         return $this->belongsTo(ProgrammingLanguage::class);
     }
 
+    /**
+     * [Description for scopeAvailable]
+     *
+     * @param Builder $builder
+     * 
+     * @return Builder
+     * 
+     */
     public function scopeAvailable(Builder $builder): Builder
     {
         return $builder->where([

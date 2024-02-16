@@ -8,7 +8,7 @@ use App\Models\Paste;
 use App\Repositories\ExpirationTimeRepository;
 use App\Repositories\PasteRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PasteService
 {

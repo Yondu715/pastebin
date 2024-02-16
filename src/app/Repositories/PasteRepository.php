@@ -6,7 +6,7 @@ use App\DTO\CreatePasteDto;
 use App\Models\AccessRestriction;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class PasteRepository

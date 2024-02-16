@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ProgrammingLanguage;
 use App\Repositories\ProgrammingLanguageRepository;
 use Illuminate\Database\Eloquent\Collection;
 

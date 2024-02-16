@@ -14,6 +14,12 @@ class ExpirationTimeRepository
         ])->first();
     }
 
+    /**
+     * [Description for getAll]
+     *
+     * @return Collection<int,ExpirationTime>
+     * 
+     */
     public function getAll(): Collection
     {
         return ExpirationTime::all();
