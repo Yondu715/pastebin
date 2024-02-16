@@ -43,7 +43,7 @@ class PasteRepository
      */
     public function getLatestPublic(): Collection
     {
-        return Paste::query()->where([
+        return Paste::query()->available()->where([
             'access_restriction_id' => AccessRestriction::PUBLIC
         ])->latest()->limit(10)->get();
     }
@@ -58,7 +58,7 @@ class PasteRepository
      */
     public function getLatestByAuthor(int $authorId): Collection
     {
-        return Paste::query()->where([
+        return Paste::query()->available()->where([
             'author_id' => $authorId
         ])->latest()->limit(10)->get();
     }
@@ -73,7 +73,7 @@ class PasteRepository
      */
     public function getByAuthor(int $authorId): LengthAwarePaginator
     {
-        return Paste::query()->where([
+        return Paste::query()->available()->where([
             'author_id' => $authorId
         ])->paginate(10);
     }
@@ -88,7 +88,7 @@ class PasteRepository
      */
     public function getByHash(string $hash): ?Paste
     {
-        return Paste::query()->where([
+        return Paste::query()->available()->where([
             'hash' => $hash
         ])->first();
     }
