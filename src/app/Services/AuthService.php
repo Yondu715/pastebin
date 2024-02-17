@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTO\CreateLinkedProviderDto;
-use App\Dto\CreateSocialiteUserDto;
+use App\DTO\CreateSocialiteUserDto;
 use App\DTO\CreateUserDto;
 use App\DTO\LoginDto;
 use App\Exceptions\UserException;
@@ -73,7 +73,7 @@ class AuthService
     public function loginViaSocial(CreateSocialiteUserDto $createSocialiteUserDto, string $provider): User
     {
         $linkedProvider = $this->linkedProviderRepository->getByProviderIdAndProviderName($createSocialiteUserDto->id, $provider);
-        if ($linkedProvider && $linkedProvider->user) {
+        if ($linkedProvider) {
             return $linkedProvider->user;
         }
         if ($this->userRepository->getByEmail($createSocialiteUserDto->email)) {

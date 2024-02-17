@@ -10,7 +10,7 @@ class LinkedProviderRepository
     /**
      * [Description for getByProviderIdAndProviderName]
      *
-     * @param int $providerId
+     * @param string $providerId
      * @param string $providerName
      * 
      * @return LinkedProvider|null
@@ -18,18 +18,16 @@ class LinkedProviderRepository
      */
     public function getByProviderIdAndProviderName(string $providerId, string $providerName): ?LinkedProvider
     {
-        return LinkedProvider::query()->with('user')->firstWhere([
+        return LinkedProvider::query()->with('user')->where([
             'provider_id' => $providerId,
             'provider_name' => $providerName
-        ]);
+        ])->first();
     }
 
     /**
      * [Description for create]
      *
-     * @param string $providerId
-     * @param string $providerName
-     * @param int $userId
+     * @param CreateLinkedProviderDto $createLinkedProviderDto
      * 
      * @return LinkedProvider
      * 

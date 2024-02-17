@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Dto\CreateSocialiteUserDto;
+use App\DTO\CreateSocialiteUserDto;
 use App\DTO\CreateUserDto;
 use App\Models\Role;
 use App\Models\User;
@@ -12,7 +12,7 @@ class UserRepository
     /**
      * [Description for create]
      *
-     * @param CreateUserDto $CreateUserDto
+     * @param CreateUserDto $createUserDto
      * 
      * @return User
      * 
@@ -29,6 +29,14 @@ class UserRepository
         return $user;
     }
 
+    /**
+     * [Description for createFromSocialite]
+     *
+     * @param CreateSocialiteUserDto $createSocialiteUserDto
+     * 
+     * @return User
+     * 
+     */
     public function createFromSocialite(CreateSocialiteUserDto $createSocialiteUserDto): User 
     {
         $user = new User([

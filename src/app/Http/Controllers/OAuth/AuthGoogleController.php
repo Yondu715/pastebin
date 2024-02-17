@@ -5,9 +5,9 @@ namespace App\Http\Controllers\OAuth;
 use App\DTO\CreateSocialiteUserDto;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AuthGoogleController extends Controller
 {
@@ -22,9 +22,9 @@ class AuthGoogleController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleProviderCallback()
+    public function handleProviderCallback(): RedirectResponse
     {
-        $socialiteUser = Socialite::driver('google')->stateless()->user();
+        $socialiteUser = Socialite::driver('google')->user();
         $createSocialiteUserDto = CreateSocialiteUserDto::fromSocialite($socialiteUser);
         $user = $this->authService->loginViaSocial($createSocialiteUserDto, 'google');
         Auth::login($user);

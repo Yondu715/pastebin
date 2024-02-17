@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property string $provider_id
+ * @property string $provider_name
+ * @property int $user_id
+ * @property User $user
+ */
 class LinkedProvider extends Model
 {
     use HasFactory;
