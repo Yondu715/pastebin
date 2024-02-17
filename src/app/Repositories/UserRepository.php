@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Dto\CreateSocialiteUserDto;
 use App\DTO\CreateUserDto;
 use App\Models\Role;
 use App\Models\User;
@@ -22,6 +23,18 @@ class UserRepository
             'email' => $createUserDto->email,
             'password' => $createUserDto->password,
             'name' => $createUserDto->name,
+            'role_id' => Role::USER_ID
+        ]);
+        $user->save();
+        return $user;
+    }
+
+    public function createFromSocialite(CreateSocialiteUserDto $createSocialiteUserDto): User 
+    {
+        $user = new User([
+            'email' => $createSocialiteUserDto->email,
+            'password' => $createSocialiteUserDto->password,
+            'name' => $createSocialiteUserDto->name,
             'role_id' => Role::USER_ID
         ]);
         $user->save();

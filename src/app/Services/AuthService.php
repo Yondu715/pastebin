@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Dto\CreateSocialiteUserDto;
 use App\DTO\CreateUserDto;
 use App\DTO\LoginDto;
 use App\Exceptions\UserException;
 use App\Models\User;
+use App\Repositories\LinkedProviderRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +15,8 @@ class AuthService
 {
 
     public function __construct(
-        private UserRepository $userRepository
+        private UserRepository $userRepository,
+        private LinkedProviderRepository $linkedProviderRepository
     ) {
     }
 
@@ -57,7 +60,26 @@ class AuthService
         return $user;
     }
 
-    public function registerViaSocial(CreateUserDto $createUserDto)
+    /**
+     * [Description for loginViaSocial]
+     *
+     * @param CreateSocialiteUserDto $createSocialiteUserDto
+     * @param string $provider
+     * 
+     * @return User
+     * 
+     */
+    public function loginViaSocial(CreateSocialiteUserDto $createSocialiteUserDto, string $provider): User
     {
+        $linkedProvider = $this->linkedProviderRepository->getByProviderIdAndProviderName($createSocialiteUserDto->id, $provider);
+        if ($linkedProvider && $linkedProvider->user) {
+            return $linkedProvider->user;
+        }
+        if ($this->userRepository->getByEmail($createSocialiteUserDto->email)) {
+            throw UserException::conflict($createSocialiteUserDto->email);
+        }
+        $user = $this->userRepository->createFromSocialite($createSocialiteUserDto);
+        $linkedProvider = $this->linkedProviderRepository->create($createSocialiteUserDto->id, $provider, $user->id);
+        return $user;
     }
 }
