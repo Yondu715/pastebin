@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\LoginDto;
-use App\DTO\RegisterDto;
+use App\DTO\CreateUserDto;
 use App\Exceptions\UserException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
@@ -59,9 +59,9 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $registerRequest): UserResource|JsonResponse
     {
-        $registerDto = RegisterDto::fromRequest($registerRequest);
+        $createUserDto = CreateUserDto::fromRequest($registerRequest);
         try {
-            $user = $this->authService->register($registerDto);
+            $user = $this->authService->register($createUserDto);
             return UserResource::make($user);
         } catch (UserException $e) {
             return response()->json([

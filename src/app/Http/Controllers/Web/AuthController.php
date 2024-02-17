@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\DTO\LoginDto;
-use App\DTO\RegisterDto;
+use App\DTO\CreateUserDto;
 use App\Exceptions\UserException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
@@ -47,9 +47,9 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $registerRequest): RedirectResponse
     {
-        $registerDto = RegisterDto::fromRequest($registerRequest);
+        $createUserDto = CreateUserDto::fromRequest($registerRequest);
         try {
-            $this->authService->register($registerDto);
+            $this->authService->register($createUserDto);
             return back()->with('success', 'Пользователь был успешно зарегистрирован');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
