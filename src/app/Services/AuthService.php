@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\CreateLinkedProviderDto;
 use App\Dto\CreateSocialiteUserDto;
 use App\DTO\CreateUserDto;
 use App\DTO\LoginDto;
@@ -79,7 +80,12 @@ class AuthService
             throw UserException::conflict($createSocialiteUserDto->email);
         }
         $user = $this->userRepository->createFromSocialite($createSocialiteUserDto);
-        $linkedProvider = $this->linkedProviderRepository->create($createSocialiteUserDto->id, $provider, $user->id);
+        $createLinkedProviderDto = new CreateLinkedProviderDto(
+            $createSocialiteUserDto->id,
+            $provider,
+            $user->id
+        );
+        $linkedProvider = $this->linkedProviderRepository->create($createLinkedProviderDto);
         return $user;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\DTO\CreateLinkedProviderDto;
 use App\Models\LinkedProvider;
 
 class LinkedProviderRepository
@@ -33,12 +34,12 @@ class LinkedProviderRepository
      * @return LinkedProvider
      * 
      */
-    public function create(string $providerId, string $providerName, int $userId): LinkedProvider
+    public function create(CreateLinkedProviderDto $createLinkedProviderDto): LinkedProvider
     {
         $linkedProvider = new LinkedProvider([
-            'provider_id' => $providerId,
-            'provider_name' => $providerName,
-            'user_id' => $userId
+            'provider_id' => $createLinkedProviderDto->providerId,
+            'provider_name' => $createLinkedProviderDto->providerName,
+            'user_id' => $createLinkedProviderDto->userId
         ]);
         return $linkedProvider;
     }
