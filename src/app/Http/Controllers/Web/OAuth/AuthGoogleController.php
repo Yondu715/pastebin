@@ -26,7 +26,7 @@ class AuthGoogleController extends Controller
      */
     public function redirectToProvider(): RedirectResponse
     {
-        return Socialite::driver(LinkedProviderType::GOOGLE)->redirect();
+        return Socialite::driver(LinkedProviderType::GOOGLE->value)->redirect();
     }
 
     /**
@@ -38,7 +38,7 @@ class AuthGoogleController extends Controller
     public function handleProviderCallback(): RedirectResponse
     {
         $createSocialiteUserDto = CreateSocialiteUserDto::fromSocialite(
-            Socialite::driver(LinkedProviderType::GOOGLE)->user()
+            Socialite::driver(LinkedProviderType::GOOGLE->value)->user()
         );
         Auth::login(
             $this->authService->loginViaSocial($createSocialiteUserDto, LinkedProviderType::GOOGLE)

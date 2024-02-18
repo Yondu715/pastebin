@@ -71,7 +71,7 @@ class AuthService
      * Авторизация через соцсети
      *
      * @param CreateSocialiteUserDto $createSocialiteUserDto
-     * @param string $provider
+     * @param LinkedProviderType $provider
      * 
      * @return User
      * 
