@@ -13,6 +13,8 @@ class ProgrammingLanguage extends Model
 {
     use HasFactory;
 
+    protected $table = 'programming_languages';
+
     /**
      * The attributes that should be hidden for serialization.
      *

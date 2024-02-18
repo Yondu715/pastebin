@@ -17,6 +17,8 @@ class AccessRestriction extends Model
     const UNLISTED = 2;
     const PRIVATE = 3;
 
+    protected $table = 'access_restrictions';
+
     /**
      * The attributes that should be hidden for serialization.
      *

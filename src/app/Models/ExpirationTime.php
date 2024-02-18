@@ -14,6 +14,8 @@ class ExpirationTime extends Model
 {
     use HasFactory;
 
+    protected $table = 'expiration_times';
+
     /**
      * The attributes that should be hidden for serialization.
      *

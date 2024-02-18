@@ -22,6 +22,8 @@ class Paste extends Model
 {
     use HasFactory;
 
+    protected $table = 'pastes';
+
     /**
      * hidden
      *

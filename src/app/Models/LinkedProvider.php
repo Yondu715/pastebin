@@ -17,8 +17,16 @@ class LinkedProvider extends Model
 {
     use HasFactory;
 
+    protected $table = 'linked_providers';
+
     protected $fillable = ['provider_id', 'provider_name', 'user_id'];
 
+    /**
+     * user
+     *
+     * @return BelongsTo
+     * 
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -17,6 +17,8 @@ class Complaint extends Model
 {
     use HasFactory;
 
+    protected $table = 'complaints';
+
     /**
      * The attributes that should be hidden for serialization.
      *
