@@ -59,7 +59,7 @@ class AuthController extends Controller
         $loginDto = LoginDto::fromRequest($loginRequest);
         try {
             Auth::login(
-                $this->authService->login($loginDto), 
+                $this->authService->login($loginDto),
                 $loginDto->remember
             );
             $loginRequest->session()->regenerate();
@@ -84,7 +84,7 @@ class AuthController extends Controller
         $createUserDto = CreateUserDto::fromRequest($registerRequest);
         try {
             $this->authService->register($createUserDto);
-            return back()->with('success', 'Пользователь был успешно зарегистрирован');
+            return redirect()->route('auth.login')->with('success', 'Пользователь был успешно зарегистрирован');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
