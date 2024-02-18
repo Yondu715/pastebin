@@ -9,9 +9,8 @@ class ExpirationTimeRepository
 {
     public function getById(int $id): ?ExpirationTime
     {
-        return ExpirationTime::query()->where([
-            'id' => $id
-        ])->first();
+        /** @var ExpirationTime*/
+        return ExpirationTime::query()->find($id);
     }
 
     /**

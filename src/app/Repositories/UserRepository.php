@@ -19,14 +19,13 @@ class UserRepository
      */
     public function create(CreateUserDto $createUserDto): User
     {
-        $user = new User([
+        /** @var User */
+        return User::query()->create([
             'email' => $createUserDto->email,
             'password' => $createUserDto->password,
             'name' => $createUserDto->name,
             'role_id' => Role::USER_ID
         ]);
-        $user->save();
-        return $user;
     }
 
     /**
@@ -37,16 +36,16 @@ class UserRepository
      * @return User
      * 
      */
-    public function createFromSocialite(CreateSocialiteUserDto $createSocialiteUserDto): User 
+    public function createFromSocialite(CreateSocialiteUserDto $createSocialiteUserDto): User
     {
-        $user = new User([
+        /** @var User */
+        return User::query()->create([
             'email' => $createSocialiteUserDto->email,
             'password' => $createSocialiteUserDto->password,
             'name' => $createSocialiteUserDto->name,
             'role_id' => Role::USER_ID
+
         ]);
-        $user->save();
-        return $user;
     }
 
     /**
@@ -59,9 +58,10 @@ class UserRepository
      */
     public function getByEmail(string $email): ?User
     {
-        return User::query()->where([
+        /** @var User|null*/
+        return User::query()->firstWhere([
             'email' => $email
-        ])->first();
+        ]);
     }
 
 

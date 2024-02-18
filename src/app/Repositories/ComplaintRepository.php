@@ -9,13 +9,12 @@ class ComplaintRepository
 {
     public function create(CreateComplaintDto $createComplaintDto): Complaint
     {
-        $complaint = new Complaint([
+        /** @var Complaint */
+        return Complaint::query()->create([
             'title' => $createComplaintDto->title,
             'text' => $createComplaintDto->text,
             'author_id' => $createComplaintDto->authorId,
             'paste_id' => $createComplaintDto->pasteId
         ]);
-        $complaint->save();
-        return $complaint;
     }
 }

@@ -22,7 +22,8 @@ class PasteRepository
      */
     public function create(CreatePasteDto $createPasteDto, int|null $minutes): Paste
     {
-        $paste = new Paste([
+        /** @var Paste|null*/
+        return Paste::query()->create([
             'title' => $createPasteDto->title,
             'text' => $createPasteDto->text,
             'author_id' => $createPasteDto->authorId,
@@ -31,8 +32,6 @@ class PasteRepository
             'hash' => Str::random(10),
             'expires_at' => $minutes ? now()->addMinutes($minutes) : null
         ]);
-        $paste->save();
-        return $paste;
     }
 
     /**
@@ -96,8 +95,8 @@ class PasteRepository
     {
         return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->available()
-            ->where([
+            ->firstWhere([
                 'hash' => $hash
-            ])->first();
+            ]);
     }
 }
