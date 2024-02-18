@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\OAuth\AuthGoogleController;
+use App\Http\Controllers\Web\Admin\UserController;
+use App\Http\Controllers\Web\OAuth\AuthGoogleController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\ComplaintController;
 use App\Http\Controllers\Web\PasteController;

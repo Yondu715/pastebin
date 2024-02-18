@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\OAuth;
+namespace App\Http\Controllers\Web\OAuth;
 
 use App\Domain\DTO\CreateSocialiteUserDto;
 use App\Http\Controllers\Controller;
