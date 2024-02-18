@@ -12,10 +12,18 @@ class ComplaintController extends Controller
 {
 
     public function __construct(
-        private ComplaintService $complaintService
+        private readonly ComplaintService $complaintService
     ) {
     }
 
+    /**
+     * Создание жалобы
+     *
+     * @param CreateComplaintRequest $createComplaintRequest
+     * 
+     * @return ComplaintResource
+     * 
+     */
     public function store(CreateComplaintRequest $createComplaintRequest): ComplaintResource
     {
         $createComplaintDto = CreateComplaintDto::fromRequest($createComplaintRequest);

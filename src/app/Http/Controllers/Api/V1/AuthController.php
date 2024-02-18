@@ -17,16 +17,18 @@ class AuthController extends Controller
 {
 
     public function __construct(
-        private AuthService $authService
+        private readonly AuthService $authService
     ) {
     }
 
     /**
-     * [Description for login]
+     * Авторизация
      *
      * @param LoginRequest $loginRequest
      * 
      * @return JsonResponse
+     * 
+     * @throws UserException
      * 
      */
     public function login(LoginRequest $loginRequest): JsonResponse
@@ -50,11 +52,13 @@ class AuthController extends Controller
     }
 
     /**
-     * [Description for register]
+     * Регистрация
      *
      * @param RegisterRequest $registerRequest
      * 
      * @return UserResource
+     * 
+     * @throws UserException
      * 
      */
     public function register(RegisterRequest $registerRequest): UserResource|JsonResponse
@@ -73,16 +77,15 @@ class AuthController extends Controller
     }
 
     /**
-     * [Description for logout]
+     * Выход
      *
-     * @return JsonResponse
+     * @return void
      * 
      */
-    public function logout(): JsonResponse
+    public function logout(): void
     {
         /** @var User $user */
         $user = auth()->user();
         $user->token()->revoke();
-        return response()->json(200);
     }
 }

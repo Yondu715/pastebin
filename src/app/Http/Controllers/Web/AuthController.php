@@ -18,20 +18,42 @@ class AuthController extends Controller
 {
 
     public function __construct(
-        private AuthService $authService
+        private readonly AuthService $authService
     ) {
     }
 
+    /**
+     * Форма авторизации
+     *
+     * @return View
+     * 
+     */
     public function getLoginForm(): View
     {
         return view('pages.auth.login');
     }
 
+    /**
+     * Форма регистрации
+     *
+     * @return View
+     * 
+     */
     public function getRegisterForm(): View
     {
         return view('pages.auth.register');
     }
 
+    /**
+     * Авторизация
+     *
+     * @param LoginRequest $loginRequest
+     * 
+     * @return RedirectResponse
+     * 
+     * @throws UserException
+     * 
+     */
     public function login(LoginRequest $loginRequest): RedirectResponse
     {
         $loginDto = LoginDto::fromRequest($loginRequest);
@@ -45,6 +67,16 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Регистрация
+     *
+     * @param RegisterRequest $registerRequest
+     * 
+     * @return RedirectResponse
+     * 
+     * @throws UserException
+     * 
+     */
     public function register(RegisterRequest $registerRequest): RedirectResponse
     {
         $createUserDto = CreateUserDto::fromRequest($registerRequest);
@@ -56,6 +88,14 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Выход
+     *
+     * @param Request $request
+     * 
+     * @return RedirectResponse
+     * 
+     */
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

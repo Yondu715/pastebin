@@ -13,15 +13,27 @@ class AuthGoogleController extends Controller
 {
 
     public function __construct(
-        private AuthService $authService
+        private readonly AuthService $authService
     ) {
     }
 
+    /**
+     * Редирект на страницу авторизации провайдера
+     *
+     * @return RedirectResponse
+     * 
+     */
     public function redirectToProvider(): RedirectResponse
     {
         return Socialite::driver('google')->redirect();
     }
 
+    /**
+     * Авторизация пользователя
+     *
+     * @return RedirectResponse
+     * 
+     */
     public function handleProviderCallback(): RedirectResponse
     {
         $socialiteUser = Socialite::driver('google')->user();

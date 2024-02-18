@@ -10,10 +10,18 @@ class UserController extends Controller
 {
 
     public function __construct(
-        private UserService $userService
+        private readonly UserService $userService
     ) {
     }
 
+    /**
+     * Бан пользователя
+     *
+     * @param int $userId
+     * 
+     * @return RedirectResponse
+     * 
+     */
     public function ban(int $userId): RedirectResponse
     {
         $this->userService->banUser($userId);

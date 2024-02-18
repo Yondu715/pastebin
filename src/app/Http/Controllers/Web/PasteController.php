@@ -16,13 +16,19 @@ use Illuminate\Contracts\View\View;
 class PasteController extends Controller
 {
     public function __construct(
-        private PasteService $pasteService,
-        private AccessRestrictionService $accessRestrictionService,
-        private ProgrammingLanguageService $programmingLanguageService,
-        private ExpirationTimeService $expirationTimeService
+        private readonly PasteService $pasteService,
+        private readonly AccessRestrictionService $accessRestrictionService,
+        private readonly ProgrammingLanguageService $programmingLanguageService,
+        private readonly ExpirationTimeService $expirationTimeService
     ) {
     }
 
+    /**
+     * Форма создания пасты
+     *
+     * @return View
+     * 
+     */
     public function create(): View
     {
         $accessRestrictions = $this->accessRestrictionService->getAll();
@@ -35,6 +41,14 @@ class PasteController extends Controller
         ]);
     }
 
+    /**
+     * Создание пасты
+     *
+     * @param CreatePasteRequest $createPasteRequest
+     * 
+     * @return RedirectResponse
+     * 
+     */
     public function store(CreatePasteRequest $createPasteRequest): RedirectResponse
     {
         $createPasteDto = CreatePasteDto::fromRequest($createPasteRequest);
@@ -42,6 +56,12 @@ class PasteController extends Controller
         return back()->with(["success" => "Паста успешно создана"]);
     }
 
+    /**
+     * Страница с последними пастами
+     *
+     * @return View
+     * 
+     */
     public function index(): View
     {
         /** @var User|null $user */
@@ -54,12 +74,26 @@ class PasteController extends Controller
         ]);
     }
 
+    /**
+     * Информация о пасте
+     *
+     * @param string $hash
+     * 
+     * @return View
+     * 
+     */
     public function show(string $hash): View
     {
         $paste = $this->pasteService->getPaste($hash);
         return view('pages.pastes.paste-info')->with(['paste' => $paste]);
     }
 
+    /**
+     * Страница с пастами авторизованного пользователя
+     *
+     * @return View
+     * 
+     */
     public function getPrivatePastes(): View
     {
         /** @var User $user */

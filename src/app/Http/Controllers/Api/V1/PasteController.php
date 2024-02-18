@@ -16,10 +16,18 @@ class PasteController extends Controller
 {
 
     public function __construct(
-        private PasteService $pasteService
+        private readonly PasteService $pasteService
     ) {
     }
 
+    /**
+     * Создание пасты
+     *
+     * @param CreatePasteRequest $createPasteRequest
+     * 
+     * @return PasteResource
+     * 
+     */
     public function store(CreatePasteRequest $createPasteRequest): PasteResource
     {
         $createPasteDto = CreatePasteDto::fromRequest($createPasteRequest);
@@ -27,12 +35,24 @@ class PasteController extends Controller
         return PasteResource::make($paste);
     }
 
+    /**
+     * Получение последних паст
+     *
+     * @return AnonymousResourceCollection
+     * 
+     */
     public function getLatestPublicPastes(): AnonymousResourceCollection
     {
         $pastes = $this->pasteService->getLatestPublicPastes();
         return PasteResource::collection($pastes);
     }
 
+    /**
+     * Получение последних паст авторизованного пользователя
+     *
+     * @return AnonymousResourceCollection
+     * 
+     */
     public function getLatestPrivatePastes(): AnonymousResourceCollection
     {
         /** @var User $user */
@@ -41,6 +61,12 @@ class PasteController extends Controller
         return PasteResource::collection($pastes);
     }
 
+    /**
+     * Получение паст авторизованного пользователя
+     *
+     * @return AnonymousResourceCollection
+     * 
+     */
     public function getPrivatePastes(): AnonymousResourceCollection
     {
         /** @var User $user */
@@ -49,6 +75,16 @@ class PasteController extends Controller
         return PasteResource::collection($pastes);
     }
 
+    /**
+     * Получение информации о пасте по ее хэшу
+     *
+     * @param string $hash
+     * 
+     * @return PasteResource|JsonResponse
+     * 
+     * @throws PasteException
+     * 
+     */
     public function getPaste(string $hash): PasteResource|JsonResponse
     {
         try {

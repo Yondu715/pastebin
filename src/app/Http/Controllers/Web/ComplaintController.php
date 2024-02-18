@@ -13,15 +13,31 @@ class ComplaintController extends Controller
 {
 
     public function __construct(
-        private ComplaintService $complaintService
+        private readonly ComplaintService $complaintService
     ) {
     }
 
+    /**
+     * Форма создания жалобы
+     *
+     * @param int $pasteId
+     * 
+     * @return View
+     * 
+     */
     public function create(int $pasteId): View
     {
         return view('pages.complaints.create')->with(['pasteId' => $pasteId]);
     }
 
+    /**
+     * Создание жалобы
+     *
+     * @param CreateComplaintRequest $createComplaintRequest
+     * 
+     * @return RedirectResponse
+     * 
+     */
     public function store(CreateComplaintRequest $createComplaintRequest): RedirectResponse
     {
         $createComplaintDto = CreateComplaintDto::fromRequest($createComplaintRequest);
