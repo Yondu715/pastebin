@@ -58,8 +58,10 @@ class AuthController extends Controller
     {
         $loginDto = LoginDto::fromRequest($loginRequest);
         try {
-            $user = $this->authService->login($loginDto);
-            Auth::login($user, $loginDto->remember);
+            Auth::login(
+                $this->authService->login($loginDto), 
+                $loginDto->remember
+            );
             $loginRequest->session()->regenerate();
             return redirect()->route('pastes.index');
         } catch (UserException $e) {

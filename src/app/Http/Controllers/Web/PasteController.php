@@ -31,13 +31,10 @@ class PasteController extends Controller
      */
     public function create(): View
     {
-        $accessRestrictions = $this->accessRestrictionService->getAll();
-        $programmingLanguages = $this->programmingLanguageService->getAll();
-        $expirationTimes = $this->expirationTimeService->getAll();
         return view('pages.pastes.create')->with([
-            'accessRestrictions' => $accessRestrictions,
-            'programmingLanguages' => $programmingLanguages,
-            'expirationTimes' => $expirationTimes
+            'accessRestrictions' => $this->accessRestrictionService->getAll(),
+            'programmingLanguages' => $this->programmingLanguageService->getAll(),
+            'expirationTimes' => $this->expirationTimeService->getAll()
         ]);
     }
 
@@ -66,11 +63,9 @@ class PasteController extends Controller
     {
         /** @var User|null $user */
         $user = auth()->user();
-        $pastes = $this->pasteService->getLatestPublicPastes();
-        $privatePastes = $user ? $this->pasteService->getLatestPrivatePastes($user->id) : [];
         return view('pages.pastes.home')->with([
-            'publicPastes' => $pastes,
-            'privatePastes' => $privatePastes
+            'publicPastes' => $this->pasteService->getLatestPublicPastes(),
+            'privatePastes' => $user ? $this->pasteService->getLatestPrivatePastes($user->id) : []
         ]);
     }
 
@@ -84,8 +79,9 @@ class PasteController extends Controller
      */
     public function show(string $hash): View
     {
-        $paste = $this->pasteService->getPaste($hash);
-        return view('pages.pastes.paste-info')->with(['paste' => $paste]);
+        return view('pages.pastes.paste-info')->with([
+            'paste' => $this->pasteService->getPaste($hash)
+        ]);
     }
 
     /**
@@ -98,7 +94,8 @@ class PasteController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $pastes = $this->pasteService->getPrivatePastes($user->id);
-        return view('pages.pastes.private')->with(['pastes' => $pastes]);
+        return view('pages.pastes.private')->with([
+            'pastes' => $this->pasteService->getPrivatePastes($user->id)
+        ]);
     }
 }
