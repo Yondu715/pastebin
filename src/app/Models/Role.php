@@ -2,8 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $display_name
+ */
 class Role extends \TCG\Voyager\Models\Role
 {
-    const ADMIN_ID = 1;
-    const USER_ID = 2;
+    use HasFactory;
 }

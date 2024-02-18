@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Domain\Enums\Role\RoleTypeId;
 use App\DTO\CreateSocialiteUserDto;
 use App\DTO\CreateUserDto;
-use App\Models\Role;
 use App\Models\User;
 
 class UserRepository
@@ -24,7 +24,7 @@ class UserRepository
             'email' => $createUserDto->email,
             'password' => $createUserDto->password,
             'name' => $createUserDto->name,
-            'role_id' => Role::USER_ID
+            'role_id' => RoleTypeId::USER_ID
         ]);
     }
 
@@ -43,7 +43,7 @@ class UserRepository
             'email' => $createSocialiteUserDto->email,
             'password' => $createSocialiteUserDto->password,
             'name' => $createSocialiteUserDto->name,
-            'role_id' => Role::USER_ID
+            'role_id' => RoleTypeId::USER_ID
 
         ]);
     }
