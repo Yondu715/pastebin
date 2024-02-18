@@ -2,17 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Paste;
-use App\Models\User;
+use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property int $id,
- * @property string $title,
- * @property string $text,
- * @property Paste $paste_id,
- * @property User $author,
+ * @mixin Complaint,
  */
 class ComplaintResource extends JsonResource
 {
@@ -27,8 +22,8 @@ class ComplaintResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'text' => $this->text,
-            'pasteId' => $this->paste_id,
-            'author' => $this->author
+            'paste' => $this->paste,
+            'author' => UserResource::make($this->author)
         ];
     }
 }

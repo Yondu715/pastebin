@@ -2,15 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use TCG\Voyager\Models\Role;
 
 /**
- * @property int $id,
- * @property string $email,
- * @property string $name,
- * @property Role $role,
+ * @mixin User,
  */
 class UserResource extends JsonResource
 {
