@@ -33,20 +33,4 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    /**
-     *
-     * @return array<string, string>
-     * 
-     */
-    public function messages(): array
-    {
-        return [
-            'email.required' => 'Необходимо указать email',
-            'email.string' => 'Поле email должен быть строкой',
-            'email.email' => 'Поле email должно быть почтой',
-            'password.required' => 'Необходимо указать password',
-            'password.string' => 'Поле password должен быть строкой'
-        ];
-    }
-
 }

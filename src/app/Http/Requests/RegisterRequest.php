@@ -33,22 +33,4 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    /**
-     *
-     * @return array<string, string>
-     * 
-     */
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'Необходимо указать name',
-            'name.string' => 'Поле name должен быть строкой',
-            'email.required' => 'Необходимо указать email',
-            'email.string' => 'Поле email должен быть строкой',
-            'email.email' => 'Поле email должно быть почтой',
-            'password.required' => 'Необходимо указать password',
-            'password.string' => 'Поле password должен быть строкой'
-        ];
-    }
-
 }
