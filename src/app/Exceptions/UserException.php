@@ -6,6 +6,15 @@ use Exception;
 
 class UserException extends Exception
 {
+    
+    /**
+     * [Description for conflict]
+     *
+     * @param string $email
+     * 
+     * @return UserException
+     * 
+     */
     public static function conflict(string $email): UserException
     {
         return new self("Пользователь с почтой $email уже существует", 409);
@@ -22,11 +31,23 @@ class UserException extends Exception
         return new self("Пользователь неавторизован", 401);
     }
 
+    /**
+     * [Description for isBanned]
+     *
+     * @return UserException
+     * 
+     */
     public static function isBanned(): UserException
     {
         return new self("Пользователь забанен", 403);
     }
 
+    /**
+     * [Description for invalidCredentials]
+     *
+     * @return UserException
+     * 
+     */
     public static function invalidCredentials(): UserException
     {
         return new self("Неверный логин или пароль", 401);
