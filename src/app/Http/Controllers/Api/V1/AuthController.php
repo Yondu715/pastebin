@@ -39,7 +39,8 @@ class AuthController extends Controller
             $token = $user->createToken('auth')->accessToken;
             return response()->json([
                 'data' => [
-                    'accessToken' => $token
+                    'accessToken' => $token,
+                    'user' => UserResource::make($user)
                 ]
             ], 200);
         } catch (UserException $e) {
