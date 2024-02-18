@@ -33,9 +33,10 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $loginRequest): JsonResponse
     {
-        $loginDto = LoginDto::fromRequest($loginRequest);
         try {
-            $user = $this->authService->login($loginDto);
+            $user = $this->authService->login(
+                LoginDto::fromRequest($loginRequest)
+            );
             $token = $user->createToken('auth')->accessToken;
             return response()->json([
                 'data' => [
@@ -64,9 +65,10 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $registerRequest): UserResource|JsonResponse
     {
-        $createUserDto = CreateUserDto::fromRequest($registerRequest);
         try {
-            $user = $this->authService->register($createUserDto);
+            $user = $this->authService->register(
+                CreateUserDto::fromRequest($registerRequest)
+            );
             return UserResource::make($user);
         } catch (UserException $e) {
             return response()->json([

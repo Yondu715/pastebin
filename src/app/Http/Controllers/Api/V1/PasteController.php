@@ -30,8 +30,9 @@ class PasteController extends Controller
      */
     public function store(CreatePasteRequest $createPasteRequest): PasteResource
     {
-        $createPasteDto = CreatePasteDto::fromRequest($createPasteRequest);
-        $paste = $this->pasteService->createPaste($createPasteDto);
+        $paste = $this->pasteService->createPaste(
+            CreatePasteDto::fromRequest($createPasteRequest)
+        );
         return PasteResource::make($paste);
     }
 
@@ -43,8 +44,9 @@ class PasteController extends Controller
      */
     public function getLatestPublicPastes(): AnonymousResourceCollection
     {
-        $pastes = $this->pasteService->getLatestPublicPastes();
-        return PasteResource::collection($pastes);
+        return PasteResource::collection(
+            $this->pasteService->getLatestPublicPastes()
+        );
     }
 
     /**
@@ -57,8 +59,9 @@ class PasteController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $pastes = $this->pasteService->getLatestPrivatePastes($user->id);
-        return PasteResource::collection($pastes);
+        return PasteResource::collection(
+            $this->pasteService->getLatestPrivatePastes($user->id)
+        );
     }
 
     /**
@@ -71,8 +74,9 @@ class PasteController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $pastes = $this->pasteService->getPrivatePastes($user->id);
-        return PasteResource::collection($pastes);
+        return PasteResource::collection(
+            $this->pasteService->getPrivatePastes($user->id)
+        );
     }
 
     /**
@@ -88,8 +92,9 @@ class PasteController extends Controller
     public function getPaste(string $hash): PasteResource|JsonResponse
     {
         try {
-            $paste = $this->pasteService->getPaste($hash);
-            return PasteResource::make($paste);
+            return PasteResource::make(
+                $this->pasteService->getPaste($hash)
+            );
         } catch (PasteException $e) {
             return response()->json([
                 'errors' => [

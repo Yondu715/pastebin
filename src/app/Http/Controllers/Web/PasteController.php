@@ -48,8 +48,9 @@ class PasteController extends Controller
      */
     public function store(CreatePasteRequest $createPasteRequest): RedirectResponse
     {
-        $createPasteDto = CreatePasteDto::fromRequest($createPasteRequest);
-        $this->pasteService->createPaste($createPasteDto);
+        $this->pasteService->createPaste(
+            CreatePasteDto::fromRequest($createPasteRequest)
+        );
         return back()->with(["success" => "Паста успешно создана"]);
     }
 

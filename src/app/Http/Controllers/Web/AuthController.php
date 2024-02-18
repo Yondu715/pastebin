@@ -81,9 +81,10 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $registerRequest): RedirectResponse
     {
-        $createUserDto = CreateUserDto::fromRequest($registerRequest);
         try {
-            $this->authService->register($createUserDto);
+            $this->authService->register(
+                CreateUserDto::fromRequest($registerRequest)
+            );
             return redirect()->route('auth.login')->with('success', 'Пользователь был успешно зарегистрирован');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());

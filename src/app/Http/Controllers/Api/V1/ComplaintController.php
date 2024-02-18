@@ -26,8 +26,9 @@ class ComplaintController extends Controller
      */
     public function store(CreateComplaintRequest $createComplaintRequest): ComplaintResource
     {
-        $createComplaintDto = CreateComplaintDto::fromRequest($createComplaintRequest);
-        $complaint = $this->complaintService->createComplaint($createComplaintDto);
+        $complaint = $this->complaintService->createComplaint(
+            CreateComplaintDto::fromRequest($createComplaintRequest)
+        );
         return ComplaintResource::make($complaint);
     }
 }

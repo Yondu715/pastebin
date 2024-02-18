@@ -40,8 +40,9 @@ class ComplaintController extends Controller
      */
     public function store(CreateComplaintRequest $createComplaintRequest): RedirectResponse
     {
-        $createComplaintDto = CreateComplaintDto::fromRequest($createComplaintRequest);
-        $this->complaintService->createComplaint($createComplaintDto);
+        $this->complaintService->createComplaint(
+            CreateComplaintDto::fromRequest($createComplaintRequest)
+        );
         return back()->with('success', 'Жалоба успешно создана');
     }
 }

@@ -36,10 +36,12 @@ class AuthGoogleController extends Controller
      */
     public function handleProviderCallback(): RedirectResponse
     {
-        $socialiteUser = Socialite::driver('google')->user();
-        $createSocialiteUserDto = CreateSocialiteUserDto::fromSocialite($socialiteUser);
-        $user = $this->authService->loginViaSocial($createSocialiteUserDto, 'google');
-        Auth::login($user);
+        $createSocialiteUserDto = CreateSocialiteUserDto::fromSocialite(
+            Socialite::driver('google')->user()
+        );
+        Auth::login(
+            $this->authService->loginViaSocial($createSocialiteUserDto, 'google')
+        );
         return redirect()->route('pastes.index');
     }
 }
