@@ -2,7 +2,7 @@
 
 namespace App\Domain\Enums\AccessRestriction;
 
-enum AccessRestrictionTypeId: string {
+enum AccessRestrictionTypeId: int {
 
     /** Публичный */
     case PUBLIC_ID = 1;
