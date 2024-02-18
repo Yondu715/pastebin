@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Domain\Enums\AccessRestriction\AccessRestrictionTypeId;
 use App\DTO\CreatePasteDto;
 use App\Models\AccessRestriction;
 use App\Models\Paste;
@@ -45,7 +46,7 @@ class PasteRepository
         return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
         ->available()
         ->where([
-            'access_restriction_id' => AccessRestriction::PUBLIC
+            'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
         ])->latest()->limit(10)->get();
     }
 

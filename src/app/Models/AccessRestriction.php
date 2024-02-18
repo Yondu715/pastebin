@@ -13,10 +13,6 @@ class AccessRestriction extends Model
 {
     use HasFactory;
 
-    const PUBLIC = 1;
-    const UNLISTED = 2;
-    const PRIVATE = 3;
-
     protected $table = 'access_restrictions';
 
     /**
