@@ -49,19 +49,4 @@ class PasteRepository extends BaseRepository
             'expires_at' => $minutes ? now()->addMinutes($minutes) : null
         ]);
     }
-
-    /**
-     * [Description for available]
-     *
-     * @param Builder $builder
-     * 
-     * @return Builder
-     * 
-     */
-    public function scopeAvailable(Builder $builder): Builder
-    {
-        return $builder->where([
-            'expires_at' => null
-        ])->orWhere('expires_at', '>', now());
-    }
 }

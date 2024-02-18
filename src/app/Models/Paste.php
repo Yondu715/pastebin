@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property timestamp $expires_at
  * @property string $hash
  * @method Builder|static available()
+ * @method Builder|static withAllFields()
  * @method static Builder|static query()
  */
 class Paste extends Model
@@ -77,5 +78,18 @@ class Paste extends Model
         return $builder->where([
             'expires_at' => null
         ])->orWhere('expires_at', '>', now());
+    }
+
+    /**
+     * [Description for scopeAvailable]
+     *
+     * @param Builder $builder
+     * 
+     * @return Builder
+     * 
+     */
+    public function scopeWithAllFields(Builder $builder): Builder
+    {
+        return $builder->with(['programmingLanguage', 'author', 'accessRestriction']);
     }
 }

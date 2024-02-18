@@ -44,10 +44,13 @@ class PasteService
      */
     public function getLatestPublicPastes(): Collection
     {
-        return $this->pasteRepository->available()->with(['programmingLanguage', 'author', 'accessRestriction'])
+        return $this->pasteRepository
+            ->available()
+            ->withAllFields()
             ->where([
                 'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
-            ])->latest()->limit(10)->get();
+            ])
+            ->latest()->limit(10)->get();
     }
 
     /**
@@ -61,8 +64,8 @@ class PasteService
     public function getLatestPrivatePastes(int $authorId): Collection
     {
         return $this->pasteRepository
-            ->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->available()
+            ->withAllFields()
             ->where([
                 'author_id' => $authorId
             ])->latest()->limit(10)->get();
@@ -80,8 +83,8 @@ class PasteService
     public function getPrivatePastes(int $authorId): LengthAwarePaginator
     {
         return $this->pasteRepository
-            ->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->available()
+            ->withAllFields()
             ->where([
                 'author_id' => $authorId
             ])->paginate(10);
@@ -100,8 +103,8 @@ class PasteService
     {
         /** @var Paste|null */
         $paste = $this->pasteRepository
-            ->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->available()
+            ->withAllFields()
             ->firstWhere([
                 'hash' => $hash
             ]);
