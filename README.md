@@ -28,9 +28,18 @@ composer install
 Далее создаем файл .env и описываем окружение по примеру .env.example
 Главное указать следующие параметры (либо можно их поменять в docker-compose.yml)
 ```sh
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
 DB_DATABASE=database
 DB_USERNAME=root
 DB_PASSWORD=123
+```
+Для того, чтобы работала авторизация через гугл, необходимо указать следующие параметры в .env
+```sh
+GOOGLE_CLIENT_ID="ВАШ CLIENT_ID"
+GOOGLE_CLIENT_SECRET="ВАШ SECRET"
+GOOGLE_REDIRECT_URI="http://127.0.0.1:80/auth/login/google/callback"
 ```
 Поднимаем миграции
 ```sh
