@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\DTO\CreatePasteDto;
+use App\Domain\DTO\CreatePasteDto;
 use App\Exceptions\PasteException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePasteRequest;

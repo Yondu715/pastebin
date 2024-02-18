@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\DTO\LoginDto;
-use App\DTO\CreateUserDto;
+use App\Domain\DTO\LoginDto;
+use App\Domain\DTO\CreateUserDto;
 use App\Exceptions\UserException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;

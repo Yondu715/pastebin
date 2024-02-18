@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\OAuth;
 
-use App\DTO\CreateSocialiteUserDto;
+use App\Domain\DTO\CreateSocialiteUserDto;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;

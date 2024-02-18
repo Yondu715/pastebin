@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\DTO\CreateComplaintDto;
+use App\Domain\DTO\CreateComplaintDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateComplaintRequest;
 use App\Services\ComplaintService;

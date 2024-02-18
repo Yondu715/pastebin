@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO;
+namespace App\Domain\DTO;
 
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Contracts\User as SocialiteUser;

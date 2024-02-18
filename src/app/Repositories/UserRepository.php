@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Domain\Enums\Role\RoleTypeId;
-use App\DTO\CreateSocialiteUserDto;
-use App\DTO\CreateUserDto;
+use App\Domain\DTO\CreateSocialiteUserDto;
+use App\Domain\DTO\CreateUserDto;
 use App\Models\User;
 
 class UserRepository

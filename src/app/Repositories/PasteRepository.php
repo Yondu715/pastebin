@@ -3,8 +3,7 @@
 namespace App\Repositories;
 
 use App\Domain\Enums\AccessRestriction\AccessRestrictionTypeId;
-use App\DTO\CreatePasteDto;
-use App\Models\AccessRestriction;
+use App\Domain\DTO\CreatePasteDto;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

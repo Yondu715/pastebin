@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\DTO\CreatePasteDto;
+use App\Domain\DTO\CreatePasteDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePasteRequest;
 use App\Models\User;

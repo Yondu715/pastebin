@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DTO\CreateLinkedProviderDto;
+use App\Domain\DTO\CreateLinkedProviderDto;
 use App\Models\LinkedProvider;
 
 class LinkedProviderRepository

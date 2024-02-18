@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\DTO\CreateLinkedProviderDto;
-use App\DTO\CreateSocialiteUserDto;
-use App\DTO\CreateUserDto;
-use App\DTO\LoginDto;
+use App\Domain\DTO\CreateLinkedProviderDto;
+use App\Domain\DTO\CreateSocialiteUserDto;
+use App\Domain\DTO\CreateUserDto;
+use App\Domain\DTO\LoginDto;
 use App\Exceptions\UserException;
 use App\Models\User;
 use App\Repositories\LinkedProviderRepository;

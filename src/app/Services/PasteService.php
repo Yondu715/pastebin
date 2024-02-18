@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\CreatePasteDto;
+use App\Domain\DTO\CreatePasteDto;
 use App\Exceptions\PasteException;
 use App\Models\Paste;
 use App\Repositories\ExpirationTimeRepository;
