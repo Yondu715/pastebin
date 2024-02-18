@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pastes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('text');
+            $table->text('text');
             $table->string('hash')->unique();
             $table->unsignedBigInteger('programming_language_id');
             $table->unsignedBigInteger('access_restriction_id');

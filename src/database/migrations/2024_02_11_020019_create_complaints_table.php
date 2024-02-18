@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('text');
+            $table->text('text');
             $table->unsignedBigInteger('paste_id');
             $table->unsignedBigInteger('author_id');
             $table->timestamps();
