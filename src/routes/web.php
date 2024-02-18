@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\OAuth\AuthGoogleController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\ComplaintController;
 use App\Http\Controllers\Web\PasteController;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+    Route::prefix('users')
+    ->name('users.')
+    ->group(function () {
+        Route::get('/{id}/ban', [UserController::class, 'ban'])
+            ->name('ban');
+    });
+});
 
 Route::get('/', function () {
     return redirect('/auth/login');
