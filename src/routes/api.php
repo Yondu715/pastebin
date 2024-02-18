@@ -26,13 +26,14 @@ Route::prefix('auth')
 
 Route::prefix('pastes')
     ->group(function () {
+        Route::middleware('auth:api')
+            ->group(function () {
+                Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes']);
+                Route::get('/private', [PasteController::class, 'getPrivatePastes']);
+            });
         Route::post('/', [PasteController::class, 'store']);
-        Route::get('/public/new', [PasteController::class, 'getLatestPublicPastes']);
-        Route::get('/private/new', [PasteController::class, 'getLatestPrivatePastes'])
-            ->middleware('auth:api');
-        Route::get('/private', [PasteController::class, 'getPrivatePastes'])
-            ->middleware('auth:api');
         Route::get('/{hash}', [PasteController::class, 'getPaste']);
+        Route::get('/public/new', [PasteController::class, 'getLatestPublicPastes']);
     });
 
 Route::prefix('complaints')
