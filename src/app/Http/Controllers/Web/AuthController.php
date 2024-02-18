@@ -57,16 +57,12 @@ class AuthController extends Controller
     public function login(LoginRequest $loginRequest): RedirectResponse
     {
         $loginDto = LoginDto::fromRequest($loginRequest);
-        try {
-            Auth::login(
-                $this->authService->login($loginDto),
-                $loginDto->remember
-            );
-            $loginRequest->session()->regenerate();
-            return redirect()->route('pastes.index');
-        } catch (UserException $e) {
-            return back()->with('error', $e->getMessage());
-        }
+        Auth::login(
+            $this->authService->login($loginDto),
+            $loginDto->remember
+        );
+        $loginRequest->session()->regenerate();
+        return redirect()->route('pastes.index');
     }
 
     /**
@@ -81,14 +77,10 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $registerRequest): RedirectResponse
     {
-        try {
-            $this->authService->register(
-                CreateUserDto::fromRequest($registerRequest)
-            );
-            return redirect()->route('auth.login')->with('success', 'Пользователь был успешно зарегистрирован');
-        } catch (UserException $e) {
-            return back()->with('error', $e->getMessage());
-        }
+        $this->authService->register(
+            CreateUserDto::fromRequest($registerRequest)
+        );
+        return redirect()->route('auth.login')->with('success', 'Пользователь был успешно зарегистрирован');
     }
 
     /**
