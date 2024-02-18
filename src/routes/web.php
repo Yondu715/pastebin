@@ -22,11 +22,11 @@ use TCG\Voyager\Facades\Voyager;
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::prefix('users')
-    ->name('users.')
-    ->group(function () {
-        Route::get('/{id}/ban', [UserController::class, 'ban'])
-            ->name('ban');
-    });
+        ->name('users.')
+        ->group(function () {
+            Route::get('/{id}/ban', [UserController::class, 'ban'])
+                ->name('ban');
+        });
 });
 
 Route::get('/', function () {
@@ -52,6 +52,7 @@ Route::prefix('auth')
 
 Route::prefix('pastes')
     ->name('pastes.')
+    ->middleware('role:user')
     ->group(function () {
         Route::middleware('auth')
             ->group(function () {

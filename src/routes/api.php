@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('auth')
+    ->middleware('role:user')
     ->group(function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('register', [AuthController::class, 'register']);
@@ -25,6 +26,7 @@ Route::prefix('auth')
     });
 
 Route::prefix('pastes')
+    ->middleware('role:user')
     ->group(function () {
         Route::middleware('auth:api')
             ->group(function () {
@@ -37,6 +39,7 @@ Route::prefix('pastes')
     });
 
 Route::prefix('complaints')
+    ->middleware('role:user')
     ->group(function () {
         Route::post('/', [ComplaintController::class, 'store'])
             ->middleware('auth:api');
