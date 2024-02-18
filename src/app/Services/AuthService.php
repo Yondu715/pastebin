@@ -6,6 +6,7 @@ use App\Domain\DTO\CreateLinkedProviderDto;
 use App\Domain\DTO\CreateSocialiteUserDto;
 use App\Domain\DTO\CreateUserDto;
 use App\Domain\DTO\LoginDto;
+use App\Domain\Enums\Linkedprovider\LinkedProviderType;
 use App\Exceptions\UserException;
 use App\Models\LinkedProvider;
 use App\Models\User;
@@ -77,7 +78,7 @@ class AuthService
      * @throws UserException
      * 
      */
-    public function loginViaSocial(CreateSocialiteUserDto $createSocialiteUserDto, string $provider): User
+    public function loginViaSocial(CreateSocialiteUserDto $createSocialiteUserDto, LinkedProviderType $provider): User
     {
         /** @var LinkedProvider|null */
         $linkedProvider = $this->linkedProviderRepository->with('user')->findWhere([
