@@ -14,13 +14,13 @@ class PasteService
 {
 
     public function __construct(
-        private ExpirationTimeRepository $expirationTimeRepository,
-        private PasteRepository $pasteRepository
+        private readonly ExpirationTimeRepository $expirationTimeRepository,
+        private readonly PasteRepository $pasteRepository
     ) {
     }
 
     /**
-     * [Description for createPaste]
+     * Создание пасты
      *
      * @param CreatePasteDto $createPasteDto
      * 
@@ -35,7 +35,7 @@ class PasteService
     }
 
     /**
-     * [Description for getLatestPublicPastes]
+     * Получение последних паст
      *
      * @return Collection<int,Paste>
      * 
@@ -47,7 +47,7 @@ class PasteService
     }
 
     /**
-     * [Description for getLatestPrivatePastes]
+     * Получение последних паст авторизованного пользователя
      *
      * @param int $authorId
      * 
@@ -62,7 +62,7 @@ class PasteService
 
 
     /**
-     * [Description for getPrivatePastes]
+     * Получение паст авторизованного пользователя
      *
      * @param int $authorId
      * 
@@ -76,13 +76,13 @@ class PasteService
     }
 
     /**
-     * [Description for getPaste]
-     * @throws PasteException
+     * Получение информации о пасте по ее хэшу
      * 
      * @param string $hash
      * 
      * @return Paste
      * 
+     * @throws PasteException
      */
     public function getPaste(string $hash): Paste
     {

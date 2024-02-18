@@ -10,12 +10,12 @@ class ExpirationTimeService
 {
 
     public function __construct(
-        private ExpirationTimeRepository $expirationTimeRepository
+        private readonly ExpirationTimeRepository $expirationTimeRepository
     ) {
     }
 
     /**
-     * [Description for getAll]
+     * Получение всех вариантов ограничения по времени
      *
      * @return Collection<int,ExpirationTime>
      * 

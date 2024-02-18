@@ -10,12 +10,12 @@ class AccessRestrictionService
 {
 
     public function __construct(
-        private AccessRestrictionRepository $accessRestrictionRepository
+        private readonly AccessRestrictionRepository $accessRestrictionRepository
     ) {
     }
 
     /**
-     * [Description for getAll]
+     * Получение всех типов доступа
      *
      * @return Collection<int,AccessRestriction>
      * 

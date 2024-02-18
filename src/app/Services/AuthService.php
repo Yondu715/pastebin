@@ -16,17 +16,19 @@ class AuthService
 {
 
     public function __construct(
-        private UserRepository $userRepository,
-        private LinkedProviderRepository $linkedProviderRepository
+        private readonly UserRepository $userRepository,
+        private readonly LinkedProviderRepository $linkedProviderRepository
     ) {
     }
 
     /**
-     * [Description for register]
+     * Регистрация
      *
      * @param CreateUserDto $createUserDto
      * 
      * @return User
+     * 
+     * @throws UserException
      * 
      */
     public function register(CreateUserDto $createUserDto): User
@@ -39,11 +41,13 @@ class AuthService
     }
 
     /**
-     * [Description for login]
+     * Авторизация
      *
      * @param LoginDto $loginDto
      * 
      * @return User
+     * 
+     * @throws UserException
      * 
      */
     public function login(LoginDto $loginDto): User
@@ -62,12 +66,14 @@ class AuthService
     }
 
     /**
-     * [Description for loginViaSocial]
+     * Авторизация через соцсети
      *
      * @param CreateSocialiteUserDto $createSocialiteUserDto
      * @param string $provider
      * 
      * @return User
+     * 
+     * @throws UserException
      * 
      */
     public function loginViaSocial(CreateSocialiteUserDto $createSocialiteUserDto, string $provider): User

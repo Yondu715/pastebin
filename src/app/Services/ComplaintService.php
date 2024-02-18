@@ -10,10 +10,18 @@ class ComplaintService
 {
 
     public function __construct(
-        private ComplaintRepository $complaintRepository
+        private readonly ComplaintRepository $complaintRepository
     ) {
     }
 
+    /**
+     * Создание жалобы
+     *
+     * @param CreateComplaintDto $createComplaintDto
+     * 
+     * @return Complaint
+     * 
+     */
     public function createComplaint(CreateComplaintDto $createComplaintDto): Complaint
     {
         $complaint = $this->complaintRepository->create($createComplaintDto);

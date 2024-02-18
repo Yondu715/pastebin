@@ -15,7 +15,7 @@ class ProgrammingLanguageService
     }
 
     /**
-     * [Description for getAll]
+     * Получение всех языков программирования
      *
      * @return Collection<int,ProgrammingLanguage>
      * 

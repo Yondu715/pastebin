@@ -13,6 +13,14 @@ class UserService
     ) {
     }
 
+    /**
+     * Бан пользователя
+     *
+     * @param int $userId
+     * 
+     * @return User|null
+     * 
+     */
     public function banUser(int $userId): ?User
     {
         $user = $this->userRepository->updateBanStatus($userId, true);
