@@ -93,6 +93,7 @@ class PasteRepository
      */
     public function getByHash(string $hash): ?Paste
     {
+        /** @var Paste|null */
         return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->available()
             ->firstWhere([
