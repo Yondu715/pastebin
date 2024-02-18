@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 
 /**
  * @property string $title
@@ -38,18 +35,4 @@ class CreateComplaintRequest extends FormRequest
         ];
     }
 
-
-    /**
-     *
-     * @param Validator $validator
-     * 
-     * @return JsonResponse
-     * 
-     */
-    protected function failedValidation(Validator $validator): JsonResponse
-    {
-        throw new HttpResponseException(response()->json([
-            'errors' => $validator->errors()
-        ], 400));
-    }
 }
