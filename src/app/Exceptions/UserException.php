@@ -2,26 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Http\JsonResponse;
-
-class UserException extends Exception
+class UserException extends BaseException
 {
-
-    /**
-     * [Description for render]
-     *
-     * @return JsonResponse
-     * 
-     */
-    public function render(): JsonResponse
-    {
-        return response()->json([
-            'error' => [
-                'message' => $this->message
-            ]
-        ], $this->code);
-    }
 
     /**
      * [Description for conflict]
