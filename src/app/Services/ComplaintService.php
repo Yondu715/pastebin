@@ -24,7 +24,6 @@ class ComplaintService
      */
     public function createComplaint(CreateComplaintDto $createComplaintDto): Complaint
     {
-        $complaint = $this->complaintRepository->create($createComplaintDto);
-        return $complaint;
+        return $this->complaintRepository->create($createComplaintDto);
     }
 }

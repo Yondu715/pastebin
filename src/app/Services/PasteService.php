@@ -30,8 +30,7 @@ class PasteService
     public function createPaste(CreatePasteDto $createPasteDto): Paste
     {
         $expirationTime = $this->expirationTimeRepository->getById($createPasteDto->expirationTimeId);
-        $paste = $this->pasteRepository->create($createPasteDto, $expirationTime->minutes);
-        return $paste;
+        return $this->pasteRepository->create($createPasteDto, $expirationTime->minutes);
     }
 
     /**
@@ -42,8 +41,7 @@ class PasteService
      */
     public function getLatestPublicPastes(): Collection
     {
-        $pastes = $this->pasteRepository->getLatestPublic();
-        return $pastes;
+        return $this->pasteRepository->getLatestPublic();
     }
 
     /**
@@ -56,8 +54,7 @@ class PasteService
      */
     public function getLatestPrivatePastes(int $authorId): Collection
     {
-        $pastes = $this->pasteRepository->getLatestByAuthor($authorId);
-        return $pastes;
+        return $this->pasteRepository->getLatestByAuthor($authorId);
     }
 
 
@@ -71,8 +68,7 @@ class PasteService
      */
     public function getPrivatePastes(int $authorId): LengthAwarePaginator
     {
-        $pastes = $this->pasteRepository->getByAuthor($authorId);
-        return $pastes;
+        return $this->pasteRepository->getByAuthor($authorId);
     }
 
     /**

@@ -23,7 +23,6 @@ class UserService
      */
     public function banUser(int $userId): ?User
     {
-        $user = $this->userRepository->updateBanStatus($userId, true);
-        return $user;
+        return $this->userRepository->updateBanStatus($userId, true);
     }
 }

@@ -36,8 +36,7 @@ class AuthService
         if ($this->userRepository->getByEmail($createUserDto->email)) {
             throw UserException::conflict($createUserDto->email);
         }
-        $user = $this->userRepository->create($createUserDto);
-        return $user;
+        return $this->userRepository->create($createUserDto);
     }
 
     /**
