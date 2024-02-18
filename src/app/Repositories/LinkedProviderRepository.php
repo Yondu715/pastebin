@@ -31,7 +31,7 @@ class LinkedProviderRepository extends BaseRepository
     public function createFromDto(CreateLinkedProviderDto $createLinkedProviderDto): LinkedProvider
     {
         /** @var LinkedProvider */
-        return LinkedProvider::query()->create([
+        return $this->create([
             'provider_id' => $createLinkedProviderDto->providerId,
             'provider_name' => $createLinkedProviderDto->providerName,
             'user_id' => $createLinkedProviderDto->userId

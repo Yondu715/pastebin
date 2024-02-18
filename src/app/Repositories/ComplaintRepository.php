@@ -31,7 +31,7 @@ class ComplaintRepository extends BaseRepository
     public function createFromDto(CreateComplaintDto $createComplaintDto): Complaint
     {
         /** @var Complaint */
-        return Complaint::query()->create([
+        return $this->create([
             'title' => $createComplaintDto->title,
             'text' => $createComplaintDto->text,
             'author_id' => $createComplaintDto->authorId,

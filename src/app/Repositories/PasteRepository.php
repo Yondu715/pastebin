@@ -39,7 +39,7 @@ class PasteRepository extends BaseRepository
     public function createFromDto(CreatePasteDto $createPasteDto, int|null $minutes): Paste
     {
         /** @var Paste|null*/
-        return Paste::query()->create([
+        return $this->create([
             'title' => $createPasteDto->title,
             'text' => $createPasteDto->text,
             'author_id' => $createPasteDto->authorId,

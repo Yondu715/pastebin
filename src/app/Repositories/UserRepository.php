@@ -33,7 +33,7 @@ class UserRepository extends BaseRepository
     public function createFromDto(CreateUserDto $createUserDto): User
     {
         /** @var User */
-        return User::query()->create([
+        return $this->create([
             'email' => $createUserDto->email,
             'password' => $createUserDto->password,
             'name' => $createUserDto->name,
@@ -52,7 +52,7 @@ class UserRepository extends BaseRepository
     public function createFromSocialite(CreateSocialiteUserDto $createSocialiteUserDto): User
     {
         /** @var User */
-        return User::query()->create([
+        return $this->create([
             'email' => $createSocialiteUserDto->email,
             'password' => $createSocialiteUserDto->password,
             'name' => $createSocialiteUserDto->name,
