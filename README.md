@@ -22,6 +22,13 @@ docker-compose exec app bash
 ```sh
 composer install
 ```
+Далее создаем файл .env и описываем окружение по примеру .env.example
+Главное указать следующие параметры (либо можно их поменять в docker-compose.yml)
+```sh
+DB_DATABASE=database
+DB_USERNAME=root
+DB_PASSWORD=123
+```
 Поднимаем миграции
 ```sh
 php artisan migrate
