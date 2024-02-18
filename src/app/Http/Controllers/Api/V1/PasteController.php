@@ -9,7 +9,6 @@ use App\Http\Requests\CreatePasteRequest;
 use App\Http\Resources\PasteResource;
 use App\Models\User;
 use App\Services\PasteService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
@@ -84,23 +83,15 @@ class PasteController extends Controller
      *
      * @param string $hash
      * 
-     * @return PasteResource|JsonResponse
+     * @return PasteResource
      * 
      * @throws PasteException
      * 
      */
-    public function getPaste(string $hash): PasteResource|JsonResponse
+    public function getPaste(string $hash): PasteResource
     {
-        try {
-            return PasteResource::make(
-                $this->pasteService->getPaste($hash)
-            );
-        } catch (PasteException $e) {
-            return response()->json([
-                'errors' => [
-                    'message' => $e->getMessage()
-                ]
-            ], $e->getCode());
-        }
+        return PasteResource::make(
+            $this->pasteService->getPaste($hash)
+        );
     }
 }

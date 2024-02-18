@@ -33,24 +33,16 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $loginRequest): JsonResponse
     {
-        try {
-            $user = $this->authService->login(
-                LoginDto::fromRequest($loginRequest)
-            );
-            $token = $user->createToken('auth')->accessToken;
-            return response()->json([
-                'data' => [
-                    'accessToken' => $token,
-                    'user' => UserResource::make($user)
-                ]
-            ], 200);
-        } catch (UserException $e) {
-            return response()->json([
-                'errors' => [
-                    'message' => $e->getMessage()
-                ]
-            ], $e->getCode());
-        }
+        $user = $this->authService->login(
+            LoginDto::fromRequest($loginRequest)
+        );
+        $token = $user->createToken('auth')->accessToken;
+        return response()->json([
+            'data' => [
+                'accessToken' => $token,
+                'user' => UserResource::make($user)
+            ]
+        ], 200);
     }
 
     /**
@@ -63,20 +55,12 @@ class AuthController extends Controller
      * @throws UserException
      * 
      */
-    public function register(RegisterRequest $registerRequest): UserResource|JsonResponse
+    public function register(RegisterRequest $registerRequest): UserResource
     {
-        try {
-            $user = $this->authService->register(
-                CreateUserDto::fromRequest($registerRequest)
-            );
-            return UserResource::make($user);
-        } catch (UserException $e) {
-            return response()->json([
-                'errors' => [
-                    'message' => $e->getMessage()
-                ]
-            ], $e->getCode());
-        }
+        $user = $this->authService->register(
+            CreateUserDto::fromRequest($registerRequest)
+        );
+        return UserResource::make($user);
     }
 
     /**
