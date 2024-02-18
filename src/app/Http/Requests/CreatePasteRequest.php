@@ -33,7 +33,7 @@ class CreatePasteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
+            'title' => 'required|string|max:255',
             'text' => 'required|string',
             'authorId' => 'numeric|nullable',
             'programmingLanguageId' => 'required|numeric',

@@ -31,7 +31,7 @@ class CreateComplaintRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|required',
+            'title' => 'string|required|max:255',
             'text' => 'string|required',
             'pasteId' => 'numeric|required',
             'authorId' => 'numeric|required'
