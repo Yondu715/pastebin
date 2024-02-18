@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Domain\DTO\CreatePasteDto;
+use App\Domain\Enums\AccessRestriction\AccessRestrictionTypeId;
 use App\Exceptions\PasteException;
+use App\Models\ExpirationTime;
 use App\Models\Paste;
 use App\Repositories\ExpirationTimeRepository;
 use App\Repositories\PasteRepository;
@@ -29,8 +31,9 @@ class PasteService
      */
     public function createPaste(CreatePasteDto $createPasteDto): Paste
     {
-        $expirationTime = $this->expirationTimeRepository->getById($createPasteDto->expirationTimeId);
-        return $this->pasteRepository->create($createPasteDto, $expirationTime->minutes);
+        /** @var ExpirationTime */
+        $expirationTime = $this->expirationTimeRepository->find($createPasteDto->expirationTimeId);
+        return $this->pasteRepository->createFromDto($createPasteDto, $expirationTime->minutes);
     }
 
     /**
@@ -41,7 +44,10 @@ class PasteService
      */
     public function getLatestPublicPastes(): Collection
     {
-        return $this->pasteRepository->getLatestPublic();
+        return $this->pasteRepository->available()->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->where([
+                'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
+            ])->latest()->limit(10)->get();
     }
 
     /**
@@ -54,7 +60,12 @@ class PasteService
      */
     public function getLatestPrivatePastes(int $authorId): Collection
     {
-        return $this->pasteRepository->getLatestByAuthor($authorId);
+        return $this->pasteRepository
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->available()
+            ->where([
+                'author_id' => $authorId
+            ])->latest()->limit(10)->get();
     }
 
 
@@ -68,7 +79,12 @@ class PasteService
      */
     public function getPrivatePastes(int $authorId): LengthAwarePaginator
     {
-        return $this->pasteRepository->getByAuthor($authorId);
+        return $this->pasteRepository
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->available()
+            ->where([
+                'author_id' => $authorId
+            ])->paginate(10);
     }
 
     /**
@@ -82,7 +98,13 @@ class PasteService
      */
     public function getPaste(string $hash): Paste
     {
-        $paste = $this->pasteRepository->getByHash($hash);
+        /** @var Paste|null */
+        $paste = $this->pasteRepository
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->available()
+            ->firstWhere([
+                'hash' => $hash
+            ]);
         if (!$paste) {
             throw PasteException::notFound($hash);
         }

@@ -22,6 +22,6 @@ class ExpirationTimeService
      */
     public function getAll(): Collection
     {
-        return $this->expirationTimeRepository->getAll();
+        return $this->expirationTimeRepository->all();
     }
 }

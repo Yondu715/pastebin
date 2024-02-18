@@ -3,19 +3,20 @@
 namespace App\Repositories;
 
 use App\Models\ProgrammingLanguage;
-use Illuminate\Database\Eloquent\Collection;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class ProgrammingLanguageRepository
+class ProgrammingLanguageRepository extends BaseRepository
 {
 
     /**
-     * [Description for getAll]
+     * [Description for model]
      *
-     * @return Collection<int,ProgrammingLanguage>
+     * @return string
      * 
      */
-    public function getAll(): Collection
+    public function model(): string
     {
-        return ProgrammingLanguage::all();
+        return ProgrammingLanguage::class;
     }
+
 }

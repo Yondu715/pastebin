@@ -6,9 +6,22 @@ use App\Domain\Enums\Role\RoleTypeId;
 use App\Domain\DTO\CreateSocialiteUserDto;
 use App\Domain\DTO\CreateUserDto;
 use App\Models\User;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {
+
+    /**
+     * [Description for model]
+     *
+     * @return string
+     * 
+     */
+    public function model(): string
+    {
+        return User::class;
+    }
+
     /**
      * [Description for create]
      *
@@ -17,7 +30,7 @@ class UserRepository
      * @return User
      * 
      */
-    public function create(CreateUserDto $createUserDto): User
+    public function createFromDto(CreateUserDto $createUserDto): User
     {
         /** @var User */
         return User::query()->create([
@@ -48,40 +61,4 @@ class UserRepository
         ]);
     }
 
-    /**
-     * [Description for getByEmail]
-     *
-     * @param string $email
-     * 
-     * @return User|null
-     * 
-     */
-    public function getByEmail(string $email): ?User
-    {
-        /** @var User|null*/
-        return User::query()->firstWhere([
-            'email' => $email
-        ]);
-    }
-
-
-    /**
-     * [Description for updateBanStatus]
-     *
-     * @param int $userId
-     * @param bool $status
-     * 
-     * @return User|null
-     * 
-     */
-    public function updateBanStatus(int $userId, bool $status): ?User
-    {
-        /** @var User|null $user */
-        $user = User::query()->find($userId);
-        if ($user) {
-            $user->is_banned = $status;
-            $user->save();
-        }
-        return $user;
-    }
 }

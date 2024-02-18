@@ -7,6 +7,7 @@ use App\Domain\DTO\CreateSocialiteUserDto;
 use App\Domain\DTO\CreateUserDto;
 use App\Domain\DTO\LoginDto;
 use App\Exceptions\UserException;
+use App\Models\LinkedProvider;
 use App\Models\User;
 use App\Repositories\LinkedProviderRepository;
 use App\Repositories\UserRepository;
@@ -33,10 +34,10 @@ class AuthService
      */
     public function register(CreateUserDto $createUserDto): User
     {
-        if ($this->userRepository->getByEmail($createUserDto->email)) {
+        if ($this->userRepository->findWhere(['email' => $createUserDto->email])) {
             throw UserException::conflict($createUserDto->email);
         }
-        return $this->userRepository->create($createUserDto);
+        return $this->userRepository->createFromDto($createUserDto);
     }
 
     /**
@@ -51,7 +52,8 @@ class AuthService
      */
     public function login(LoginDto $loginDto): User
     {
-        $user = $this->userRepository->getByEmail($loginDto->email);
+        /** @var User|null */
+        $user = $this->userRepository->findWhere(['email' => $loginDto->email]);
         if (!$user || !Hash::check($loginDto->password, $user->password)) {
             throw UserException::invalidCredentials();
         }
@@ -77,11 +79,15 @@ class AuthService
      */
     public function loginViaSocial(CreateSocialiteUserDto $createSocialiteUserDto, string $provider): User
     {
-        $linkedProvider = $this->linkedProviderRepository->getByProviderIdAndProviderName($createSocialiteUserDto->id, $provider);
+        /** @var LinkedProvider|null */
+        $linkedProvider = $this->linkedProviderRepository->with('user')->findWhere([
+            'provider_id' => $createSocialiteUserDto->id,
+            'provider_name' => $provider
+        ]);
         if ($linkedProvider) {
             return $linkedProvider->user;
         }
-        if ($this->userRepository->getByEmail($createSocialiteUserDto->email)) {
+        if ($this->userRepository->findWhere(['email' => $createSocialiteUserDto->email])) {
             throw UserException::conflict($createSocialiteUserDto->email);
         }
         $user = $this->userRepository->createFromSocialite($createSocialiteUserDto);
@@ -90,7 +96,7 @@ class AuthService
             $provider,
             $user->id
         );
-        $linkedProvider = $this->linkedProviderRepository->create($createLinkedProviderDto);
+        $linkedProvider = $this->linkedProviderRepository->createFromDto($createLinkedProviderDto);
         return $user;
     }
 }

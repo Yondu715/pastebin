@@ -4,23 +4,20 @@ namespace App\Repositories;
 
 use App\Models\ExpirationTime;
 use Illuminate\Database\Eloquent\Collection;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class ExpirationTimeRepository
+class ExpirationTimeRepository extends BaseRepository
 {
-    public function getById(int $id): ?ExpirationTime
-    {
-        /** @var ExpirationTime*/
-        return ExpirationTime::query()->find($id);
-    }
 
     /**
-     * [Description for getAll]
+     * [Description for model]
      *
-     * @return Collection<int,ExpirationTime>
+     * @return string
      * 
      */
-    public function getAll(): Collection
+    public function model(): string
     {
-        return ExpirationTime::all();
+        return ExpirationTime::class;
     }
+
 }

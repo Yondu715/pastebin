@@ -4,10 +4,31 @@ namespace App\Repositories;
 
 use App\Domain\DTO\CreateComplaintDto;
 use App\Models\Complaint;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class ComplaintRepository
+class ComplaintRepository extends BaseRepository
 {
-    public function create(CreateComplaintDto $createComplaintDto): Complaint
+
+    /**
+     * [Description for model]
+     *
+     * @return string
+     * 
+     */
+    public function model(): string
+    {
+        return Complaint::class;
+    }
+
+    /**
+     * [Description for createFromDto]
+     *
+     * @param CreateComplaintDto $createComplaintDto
+     * 
+     * @return Complaint
+     * 
+     */
+    public function createFromDto(CreateComplaintDto $createComplaintDto): Complaint
     {
         /** @var Complaint */
         return Complaint::query()->create([

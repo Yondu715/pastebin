@@ -2,15 +2,31 @@
 
 namespace App\Repositories;
 
-use App\Domain\Enums\AccessRestriction\AccessRestrictionTypeId;
 use App\Domain\DTO\CreatePasteDto;
 use App\Models\Paste;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class PasteRepository
+/**  
+ * @method Builder|static available()
+ * @method Builder|static withAllFields()
+ */
+class PasteRepository extends BaseRepository
 {
+
+    /**
+     * [Description for model]
+     *
+     * @return string
+     * 
+     */
+    public function model(): string
+    {
+        return Paste::class;
+    }
+
+
     /**
      * [Description for create]
      *
@@ -20,7 +36,7 @@ class PasteRepository
      * @return Paste
      * 
      */
-    public function create(CreatePasteDto $createPasteDto, int|null $minutes): Paste
+    public function createFromDto(CreatePasteDto $createPasteDto, int|null $minutes): Paste
     {
         /** @var Paste|null*/
         return Paste::query()->create([
@@ -35,69 +51,17 @@ class PasteRepository
     }
 
     /**
-     * [Description for getLatestPublic]
+     * [Description for available]
      *
-     * @return Collection<int,Paste>
+     * @param Builder $builder
+     * 
+     * @return Builder
      * 
      */
-    public function getLatestPublic(): Collection
+    public function scopeAvailable(Builder $builder): Builder
     {
-        return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-            ->available()
-            ->where([
-                'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
-            ])->latest()->limit(10)->get();
-    }
-
-    /**
-     * [Description for getLatestByAuthor]
-     *
-     * @param int $authorId
-     * 
-     * @return Collection<int,Paste>
-     * 
-     */
-    public function getLatestByAuthor(int $authorId): Collection
-    {
-        return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-            ->available()
-            ->where([
-                'author_id' => $authorId
-            ])->latest()->limit(10)->get();
-    }
-
-    /**
-     * [Description for getByAuthor]
-     *
-     * @param int $authorId
-     * 
-     * @return LengthAwarePaginator
-     * 
-     */
-    public function getByAuthor(int $authorId): LengthAwarePaginator
-    {
-        return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-            ->available()
-            ->where([
-                'author_id' => $authorId
-            ])->paginate(10);
-    }
-
-    /**
-     * [Description for getByHash]
-     *
-     * @param string $hash
-     * 
-     * @return Paste|null
-     * 
-     */
-    public function getByHash(string $hash): ?Paste
-    {
-        /** @var Paste|null */
-        return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-            ->available()
-            ->firstWhere([
-                'hash' => $hash
-            ]);
+        return $builder->where([
+            'expires_at' => null
+        ])->orWhere('expires_at', '>', now());
     }
 }

@@ -4,25 +4,20 @@ namespace App\Repositories;
 
 use App\Domain\DTO\CreateLinkedProviderDto;
 use App\Models\LinkedProvider;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class LinkedProviderRepository
+class LinkedProviderRepository extends BaseRepository
 {
+
     /**
-     * [Description for getByProviderIdAndProviderName]
+     * [Description for model]
      *
-     * @param string $providerId
-     * @param string $providerName
-     * 
-     * @return LinkedProvider|null
+     * @return string
      * 
      */
-    public function getByProviderIdAndProviderName(string $providerId, string $providerName): ?LinkedProvider
+    public function model(): string
     {
-        /** @var LinkedProvider|null */
-        return LinkedProvider::query()->with('user')->firstWhere([
-            'provider_id' => $providerId,
-            'provider_name' => $providerName
-        ]);
+        return LinkedProvider::class;
     }
 
     /**
@@ -33,7 +28,7 @@ class LinkedProviderRepository
      * @return LinkedProvider
      * 
      */
-    public function create(CreateLinkedProviderDto $createLinkedProviderDto): LinkedProvider
+    public function createFromDto(CreateLinkedProviderDto $createLinkedProviderDto): LinkedProvider
     {
         /** @var LinkedProvider */
         return LinkedProvider::query()->create([

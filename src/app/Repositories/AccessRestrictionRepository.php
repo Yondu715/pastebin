@@ -3,19 +3,19 @@
 namespace App\Repositories;
 
 use App\Models\AccessRestriction;
-use Illuminate\Database\Eloquent\Collection;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class AccessRestrictionRepository
+class AccessRestrictionRepository extends BaseRepository
 {
 
     /**
-     * [Description for getAll]
+     * [Description for model]
      *
-     * @return Collection<int,AccessRestriction>
+     * @return string
      * 
      */
-    public function getAll(): Collection
+    public function model(): string
     {
-        return AccessRestriction::all();
+        return AccessRestriction::class;
     }
 }

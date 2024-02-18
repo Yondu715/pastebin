@@ -22,6 +22,6 @@ class ProgrammingLanguageService
      */
     public function getAll(): Collection
     {
-        return $this->programmingLanguageRepository->getAll();
+        return $this->programmingLanguageRepository->all();
     }
 }

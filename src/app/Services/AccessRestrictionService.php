@@ -22,6 +22,6 @@ class AccessRestrictionService
      */
     public function getAll(): Collection
     {
-        return $this->accessRestrictionRepository->getAll();
+        return $this->accessRestrictionRepository->all();
     }
 }
