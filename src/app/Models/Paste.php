@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $text
  * @property User $author
  * @property AccessRestrinction $accessRestriction
+ * @property ProgrammingLanguage $programmingLanguage
  * @property timestamp $expires_at
  * @property string $hash
  * @method Builder|static available()

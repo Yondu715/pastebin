@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property string $password
  * @property bool $is_banned
+ * @property-read Role $role
  */
 class User extends \TCG\Voyager\Models\User
 {
