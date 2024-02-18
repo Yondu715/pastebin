@@ -43,10 +43,10 @@ class PasteRepository
     public function getLatestPublic(): Collection
     {
         return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-        ->available()
-        ->where([
-            'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
-        ])->latest()->limit(10)->get();
+            ->available()
+            ->where([
+                'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
+            ])->latest()->limit(10)->get();
     }
 
     /**
@@ -60,10 +60,10 @@ class PasteRepository
     public function getLatestByAuthor(int $authorId): Collection
     {
         return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-        ->available()
-        ->where([
-            'author_id' => $authorId
-        ])->latest()->limit(10)->get();
+            ->available()
+            ->where([
+                'author_id' => $authorId
+            ])->latest()->limit(10)->get();
     }
 
     /**
@@ -77,10 +77,10 @@ class PasteRepository
     public function getByAuthor(int $authorId): LengthAwarePaginator
     {
         return Paste::query()->with(['programmingLanguage', 'author', 'accessRestriction'])
-        ->available()
-        ->where([
-            'author_id' => $authorId
-        ])->paginate(10);
+            ->available()
+            ->where([
+                'author_id' => $authorId
+            ])->paginate(10);
     }
 
     /**
