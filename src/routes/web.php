@@ -63,5 +63,6 @@ Route::prefix('pastes')
         Route::get('/', [PasteController::class, 'index'])->name('index');
         Route::post('/', [PasteController::class, 'store'])->name('store');
         Route::get('/create', [PasteController::class, 'create'])->name('create');
-        Route::get('/{hash}', [PasteController::class, 'show'])->name('show');
     });
+
+Route::get('/{hash}', [PasteController::class, 'show'])->name('pastes.show');
