@@ -18,7 +18,7 @@ class CheckUserRole
     {
         /** @var User */
         $user = auth()->user();
-        if (!$user->hasRole($role)) {
+        if (!$user || !$user->hasRole($role)) {
             abort(403);
         }
         return $next($request);
