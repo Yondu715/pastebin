@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Domain\DTO\CreatePasteDto;
-use App\Domain\Enums\AccessRestriction\AccessRestrictionTypeId;
 use App\Exceptions\PasteException;
 use App\Models\ExpirationTime;
 use App\Models\Paste;
@@ -44,13 +43,7 @@ class PasteService
      */
     public function getLatestPublicPastes(): Collection
     {
-        return $this->pasteRepository
-            ->where([
-                'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
-            ])
-            ->available()
-            ->withAllFields()
-            ->getLatest(10);
+        return $this->pasteRepository->getLatestPublicPastes();
     }
 
     /**
@@ -63,15 +56,8 @@ class PasteService
      */
     public function getLatestPrivatePastes(int $authorId): Collection
     {
-        return $this->pasteRepository
-            ->where([
-                'author_id' => $authorId
-            ])
-            ->available()
-            ->withAllFields()
-            ->getLatest(10);
+        return $this->pasteRepository->getLatestPrivatePastes($authorId);
     }
-
 
     /**
      * Получение паст авторизованного пользователя
@@ -83,13 +69,7 @@ class PasteService
      */
     public function getPrivatePastes(int $authorId): LengthAwarePaginator
     {
-        return $this->pasteRepository
-            ->where([
-                'author_id' => $authorId
-            ])
-            ->available()
-            ->withAllFields()
-            ->paginate(10);
+        return $this->pasteRepository->getPrivatePastes($authorId);
     }
 
     /**
@@ -103,14 +83,7 @@ class PasteService
      */
     public function getPaste(string $hash): Paste
     {
-        /** @var Paste|null */
-        $paste = $this->pasteRepository
-            ->where([
-                'hash' => $hash
-            ])
-            ->available()
-            ->withAllFields()
-            ->first();
+        $paste = $this->pasteRepository->getByHash($hash);
         if (!$paste) {
             throw PasteException::notFound($hash);
         }

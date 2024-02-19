@@ -3,9 +3,11 @@
 namespace App\Repositories;
 
 use App\Domain\DTO\CreatePasteDto;
+use App\Domain\Enums\AccessRestriction\AccessRestrictionTypeId;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -13,7 +15,6 @@ class PasteRepository extends BaseRepository
 {
 
     /**
-     * [Description for model]
      *
      * @return string
      * 
@@ -25,7 +26,6 @@ class PasteRepository extends BaseRepository
 
 
     /**
-     * [Description for create]
      *
      * @param CreatePasteDto $createPasteDto
      * @param int|null $minutes
@@ -48,56 +48,86 @@ class PasteRepository extends BaseRepository
     }
 
     /**
-     * [Description for getLatest]
      *
-     * @param int $limit
+     * @param int $id
      * 
      * @return Collection<int,Paste>
      * 
      */
-    public function getLatest(int $limit): Collection
-     {
-        return $this->orderBy('created_at')->limit($limit);
+    public function getLatestPrivatePastes(int $id): Collection
+    {
+        return $this->model->query()
+            ->where([
+                'author_id' => $id
+            ])
+            ->where(function (Builder $builder) {
+                return $builder->where('expires_at', null)
+                    ->orWhere('expires_at', '>', now());
+            })
+            ->orderBy('created_at')
+            ->limit(10)
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->get();
     }
 
     /**
-     * [Description for where]
      *
-     * @param array<string,mixed> $where
-     * 
-     * @return PasteRepository
+     * @return Collection<int,Paste>
      * 
      */
-    public function where(array $where): PasteRepository
+    public function getLatestPublicPastes(): Collection
     {
-        return $this->scopeQuery(function ($query) use ($where) {
-            return $query->where($where);
-        });
+        return $this->model->query()
+            ->where([
+                'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
+            ])
+            ->where(function (Builder $builder) {
+                return $builder->where('expires_at', null)
+                    ->orWhere('expires_at', '>', now());
+            })
+            ->orderBy('created_at')
+            ->limit(10)
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->get();
     }
 
     /**
-     * [Description for available]
      *
-     * @return PasteRepository
+     * @param int $id
+     * 
+     * @return LengthAwarePaginator
      * 
      */
-    public function available(): PasteRepository
+    public function getPrivatePastes(int $id): LengthAwarePaginator
     {
-        return $this->scopeQuery(function ($query) {
-            return $query->where([
-                'expires_at' => null
-            ])->orWhere('expires_at', '>', now());
-        });
+        return $this->model->query()
+            ->where('author_id', $id)
+            ->where(function (Builder $builder) {
+                return $builder->where('expires_at', null)
+                    ->orWhere('expires_at', '>', now());
+            })
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->paginate(10);
     }
 
     /**
-     * [Description for withAllFields]
      *
-     * @return PasteRepository
+     * @param string $hash
+     * 
+     * @return Paste|null
      * 
      */
-    public function withAllFields(): PasteRepository
-    {
-        return $this->with(['programmingLanguage', 'author', 'accessRestriction']);
+    public function getByHash(string $hash): ?Paste {
+        /** @var Paste|null */
+        return $this->model->query()
+            ->where([
+                'hash' => $hash
+            ])
+            ->where(function (Builder $builder) {
+                return $builder->where('expires_at', null)
+                    ->orWhere('expires_at', '>', now());
+            })
+            ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->first();
     }
 }
