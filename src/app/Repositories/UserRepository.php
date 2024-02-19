@@ -61,4 +61,14 @@ class UserRepository extends BaseRepository
         ]);
     }
 
+
+    public function getFirstByEmail(string $email): ?User
+    {
+        /** @var User|null */
+        return $this->scopeQuery(function ($query) use ($email) {
+            return $query->where([
+                'email' => $email
+            ]);
+        })->first();
+    }
 }

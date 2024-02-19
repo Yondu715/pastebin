@@ -35,7 +35,7 @@ class AuthService
      */
     public function register(CreateUserDto $createUserDto): User
     {
-        if ($this->userRepository->findWhere(['email' => $createUserDto->email])) {
+        if ($this->userRepository->findByField('email', $createUserDto->email)) {
             throw UserException::conflict($createUserDto->email);
         }
         return $this->userRepository->createFromDto($createUserDto);
@@ -54,7 +54,7 @@ class AuthService
     public function login(LoginDto $loginDto): User
     {
         /** @var User|null */
-        $user = $this->userRepository->findWhere(['email' => $loginDto->email]);
+        $user = $this->userRepository->getFirstByEmail($loginDto->email);
         if (!$user || !Hash::check($loginDto->password, $user->password)) {
             throw UserException::invalidCredentials();
         }
@@ -84,11 +84,11 @@ class AuthService
         $linkedProvider = $this->linkedProviderRepository->with('user')->findWhere([
             'provider_id' => $createSocialiteUserDto->id,
             'provider_name' => $provider
-        ]);
+        ])->first();
         if ($linkedProvider) {
             return $linkedProvider->user;
         }
-        if ($this->userRepository->findWhere(['email' => $createSocialiteUserDto->email])) {
+        if ($this->userRepository->findByField('email', $createSocialiteUserDto->email)->first()) {
             throw UserException::conflict($createSocialiteUserDto->email);
         }
         $user = $this->userRepository->createFromSocialite($createSocialiteUserDto);
