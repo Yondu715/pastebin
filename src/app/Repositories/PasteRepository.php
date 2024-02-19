@@ -64,7 +64,7 @@ class PasteRepository extends BaseRepository
                 return $builder->where('expires_at', null)
                     ->orWhere('expires_at', '>', now());
             })
-            ->orderBy('created_at')
+            ->latest()
             ->limit(10)
             ->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->get();
@@ -85,7 +85,7 @@ class PasteRepository extends BaseRepository
                 return $builder->where('expires_at', null)
                     ->orWhere('expires_at', '>', now());
             })
-            ->orderBy('created_at')
+            ->latest()
             ->limit(10)
             ->with(['programmingLanguage', 'author', 'accessRestriction'])
             ->get();
@@ -107,6 +107,7 @@ class PasteRepository extends BaseRepository
                     ->orWhere('expires_at', '>', now());
             })
             ->with(['programmingLanguage', 'author', 'accessRestriction'])
+            ->latest()
             ->paginate(10);
     }
 
