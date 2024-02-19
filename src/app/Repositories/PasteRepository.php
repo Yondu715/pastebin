@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Domain\DTO\CreatePasteDto;
 use App\Models\Paste;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -56,9 +57,7 @@ class PasteRepository extends BaseRepository
      */
     public function getLatest(int $limit): Collection
      {
-        return $this->scopeQuery(function ($query) use ($limit) {
-            return $query->latest()->limit($limit);
-        })->get();
+        return $this->orderBy('created_at')->limit($limit);
     }
 
     /**
