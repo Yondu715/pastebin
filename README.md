@@ -5,10 +5,14 @@
 ![изображение](https://github.com/Yondu715/pastebin/assets/116293533/826c7abb-9368-4e5e-8cc2-09990f95db4f)
 
 ## Стек
-- [Laravel] - Backend Фреймворк
-- [Voyager] - Админ-панель
-- [Docker] - Контейнерная платформа
-- [MySql] - СУБД
+- PHP (v8.2) - Язык программирования
+- Laravel (v10.43.0) - Backend фреймворк
+- Voyager (v1.7) - Админ-панель
+- Passport (v11.10) - Пакет для авторизации
+- Socialite (v5.12) - Пакет для авторизации через сторонние сервисы
+- l5-repository (v2.9) - Пакет для репозиториев
+- Docker Engine (v25.0.3) - Контейнерная платформа
+- MySql (v8.3) - СУБД
 
 ## Алиасы
 В корне проекта есть файл Makefile, в котором содержатся алиасы для часто используемых команд
@@ -58,6 +62,11 @@ GOOGLE_REDIRECT_URI="http://127.0.0.1:80/auth/login/google/callback"
 Поднимаем миграции
 ```sh
 php artisan migrate
+```
+
+Инициализируем Passport
+```sh
+php artisan passport:install
 ```
 
 Далее инициализируем voyager
