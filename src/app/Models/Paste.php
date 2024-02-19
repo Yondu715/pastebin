@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,9 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property ProgrammingLanguage $programmingLanguage
  * @property timestamp $expires_at
  * @property string $hash
- * @method Builder|static available()
- * @method Builder|static withAllFields()
- * @method static Builder|static query()
  */
 class Paste extends Model
 {
@@ -65,31 +61,4 @@ class Paste extends Model
         return $this->belongsTo(ProgrammingLanguage::class);
     }
 
-    /**
-     * [Description for scopeAvailable]
-     *
-     * @param Builder $builder
-     * 
-     * @return Builder
-     * 
-     */
-    public function scopeAvailable(Builder $builder): Builder
-    {
-        return $builder->where([
-            'expires_at' => null
-        ])->orWhere('expires_at', '>', now());
-    }
-
-    /**
-     * [Description for scopeAvailable]
-     *
-     * @param Builder $builder
-     * 
-     * @return Builder
-     * 
-     */
-    public function scopeWithAllFields(Builder $builder): Builder
-    {
-        return $builder->with(['programmingLanguage', 'author', 'accessRestriction']);
-    }
 }

@@ -4,14 +4,10 @@ namespace App\Repositories;
 
 use App\Domain\DTO\CreatePasteDto;
 use App\Models\Paste;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-/**  
- * @method Builder|static available()
- * @method Builder|static withAllFields()
- */
 class PasteRepository extends BaseRepository
 {
 
@@ -38,7 +34,7 @@ class PasteRepository extends BaseRepository
      */
     public function createFromDto(CreatePasteDto $createPasteDto, int|null $minutes): Paste
     {
-        /** @var Paste|null*/
+        /** @var Paste */
         return $this->create([
             'title' => $createPasteDto->title,
             'text' => $createPasteDto->text,
@@ -48,5 +44,61 @@ class PasteRepository extends BaseRepository
             'hash' => Str::random(10),
             'expires_at' => $minutes ? now()->addMinutes($minutes) : null
         ]);
+    }
+
+    /**
+     * [Description for getLatest]
+     *
+     * @param int $limit
+     * 
+     * @return Collection<int,Paste>
+     * 
+     */
+    public function getLatest(int $limit): Collection
+     {
+        return $this->scopeQuery(function ($query) use ($limit) {
+            return $query->latest()->limit($limit);
+        })->get();
+    }
+
+    /**
+     * [Description for where]
+     *
+     * @param array<string,mixed> $where
+     * 
+     * @return PasteRepository
+     * 
+     */
+    public function where(array $where): PasteRepository
+    {
+        return $this->scopeQuery(function ($query) use ($where) {
+            return $query->where($where);
+        });
+    }
+
+    /**
+     * [Description for available]
+     *
+     * @return PasteRepository
+     * 
+     */
+    public function available(): PasteRepository
+    {
+        return $this->scopeQuery(function ($query) {
+            return $query->where([
+                'expires_at' => null
+            ])->orWhere('expires_at', '>', now());
+        });
+    }
+
+    /**
+     * [Description for withAllFields]
+     *
+     * @return PasteRepository
+     * 
+     */
+    public function withAllFields(): PasteRepository
+    {
+        return $this->with(['programmingLanguage', 'author', 'accessRestriction']);
     }
 }

@@ -46,11 +46,11 @@ class PasteService
     {
         return $this->pasteRepository
             ->available()
-            ->withAllFields()
             ->where([
                 'access_restriction_id' => AccessRestrictionTypeId::PUBLIC_ID
             ])
-            ->latest()->limit(10)->get();
+            ->withAllFields()
+            ->getLatest(10);
     }
 
     /**
@@ -65,10 +65,11 @@ class PasteService
     {
         return $this->pasteRepository
             ->available()
-            ->withAllFields()
             ->where([
                 'author_id' => $authorId
-            ])->latest()->limit(10)->get();
+            ])
+            ->withAllFields()
+            ->getLatest(10);
     }
 
 
@@ -84,10 +85,11 @@ class PasteService
     {
         return $this->pasteRepository
             ->available()
-            ->withAllFields()
             ->where([
                 'author_id' => $authorId
-            ])->paginate(10);
+            ])
+            ->withAllFields()
+            ->paginate(10);
     }
 
     /**
@@ -104,10 +106,11 @@ class PasteService
         /** @var Paste|null */
         $paste = $this->pasteRepository
             ->available()
-            ->withAllFields()
-            ->firstWhere([
+            ->where([
                 'hash' => $hash
-            ]);
+            ])
+            ->withAllFields()
+            ->first();
         if (!$paste) {
             throw PasteException::notFound($hash);
         }
