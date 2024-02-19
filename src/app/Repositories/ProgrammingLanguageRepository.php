@@ -9,7 +9,6 @@ class ProgrammingLanguageRepository extends BaseRepository
 {
 
     /**
-     * [Description for model]
      *
      * @return string
      * 

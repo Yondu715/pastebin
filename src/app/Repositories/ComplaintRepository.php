@@ -10,7 +10,6 @@ class ComplaintRepository extends BaseRepository
 {
 
     /**
-     * [Description for model]
      *
      * @return string
      * 
@@ -21,7 +20,6 @@ class ComplaintRepository extends BaseRepository
     }
 
     /**
-     * [Description for createFromDto]
      *
      * @param CreateComplaintDto $createComplaintDto
      * 

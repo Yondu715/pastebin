@@ -9,7 +9,6 @@ class AccessRestrictionRepository extends BaseRepository
 {
 
     /**
-     * [Description for model]
      *
      * @return string
      * 

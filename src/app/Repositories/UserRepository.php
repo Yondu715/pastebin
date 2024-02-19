@@ -12,7 +12,6 @@ class UserRepository extends BaseRepository
 {
 
     /**
-     * [Description for model]
      *
      * @return string
      * 
@@ -23,7 +22,6 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * [Description for create]
      *
      * @param CreateUserDto $createUserDto
      * 
@@ -42,7 +40,6 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * [Description for createFromSocialite]
      *
      * @param CreateSocialiteUserDto $createSocialiteUserDto
      * 
@@ -62,6 +59,13 @@ class UserRepository extends BaseRepository
     }
 
 
+    /**
+     *
+     * @param string $email
+     * 
+     * @return User|null
+     * 
+     */
     public function getFirstByEmail(string $email): ?User
     {
         /** @var User|null */

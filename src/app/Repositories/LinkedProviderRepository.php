@@ -10,7 +10,6 @@ class LinkedProviderRepository extends BaseRepository
 {
 
     /**
-     * [Description for model]
      *
      * @return string
      * 
@@ -21,7 +20,6 @@ class LinkedProviderRepository extends BaseRepository
     }
 
     /**
-     * [Description for create]
      *
      * @param CreateLinkedProviderDto $createLinkedProviderDto
      * 
