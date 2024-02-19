@@ -29,10 +29,11 @@ class PasteController extends Controller
      */
     public function store(CreatePasteRequest $createPasteRequest): PasteResource
     {
-        $paste = $this->pasteService->createPaste(
-            CreatePasteDto::fromRequest($createPasteRequest)
+        return PasteResource::make(
+            $this->pasteService->createPaste(
+                CreatePasteDto::fromRequest($createPasteRequest)
+            )
         );
-        return PasteResource::make($paste);
     }
 
     /**

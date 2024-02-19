@@ -36,10 +36,9 @@ class AuthController extends Controller
         $user = $this->authService->login(
             LoginDto::fromRequest($loginRequest)
         );
-        $token = $user->createToken('auth')->accessToken;
         return response()->json([
             'data' => [
-                'accessToken' => $token,
+                'accessToken' => $user->createToken('auth')->accessToken,
                 'user' => UserResource::make($user)
             ]
         ], 200);
@@ -57,10 +56,11 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $registerRequest): UserResource
     {
-        $user = $this->authService->register(
-            CreateUserDto::fromRequest($registerRequest)
+        return UserResource::make(
+            $this->authService->register(
+                CreateUserDto::fromRequest($registerRequest)
+            )
         );
-        return UserResource::make($user);
     }
 
     /**
