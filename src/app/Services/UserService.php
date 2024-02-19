@@ -24,8 +24,9 @@ class UserService
     public function banUser(int $userId): ?User
     {
         /** @var User|null */
+        $user = $this->userRepository->find($userId);
         return $this->userRepository->update([
-            'is_banned' => true
+            'is_banned' => !$user->is_banned
         ], $userId);
     }
 }
